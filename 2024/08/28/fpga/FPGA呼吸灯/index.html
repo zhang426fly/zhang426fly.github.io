@@ -1,0 +1,926 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  <link rel="icon" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#008C8C">
+  <meta name="author" content="zhangJinLong">
+  <meta name="keywords" content="FPGA stm32 C++ C Goland">
+  
+    <meta name="description" content="FPGA呼吸灯 PWM（ Pulse Width Modulation），即脉冲宽度调制，它是利用微处理器输出的 PWM 信号对模拟电路进行控制的一种非常有效的技术，广泛应用于测量、通信功率控制等领域。在由计数器产生固定周期的 PWM 信号下，如果其占空比为 0，则 LED 灯不亮；如果其占空比为100%，则 LED 灯最亮。将占空比从 0 到100%，再从 100%到 0 不断变化，就可以实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="呼吸灯">
+<meta property="og:url" content="https://zhang426fly.github.io/2024/08/28/fpga/FPGA%E5%91%BC%E5%90%B8%E7%81%AF/index.html">
+<meta property="og:site_name" content="Zhang&#39;blog">
+<meta property="og:description" content="FPGA呼吸灯 PWM（ Pulse Width Modulation），即脉冲宽度调制，它是利用微处理器输出的 PWM 信号对模拟电路进行控制的一种非常有效的技术，广泛应用于测量、通信功率控制等领域。在由计数器产生固定周期的 PWM 信号下，如果其占空比为 0，则 LED 灯不亮；如果其占空比为100%，则 LED 灯最亮。将占空比从 0 到100%，再从 100%到 0 不断变化，就可以实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2024/08/28/66cf2c6db4aea.jpg">
+<meta property="article:published_time" content="2024-08-28T13:47:43.755Z">
+<meta property="article:modified_time" content="2024-08-31T03:55:16.965Z">
+<meta property="article:author" content="zhangJinLong">
+<meta property="article:tag" content="FPGA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bu.dusays.com/2024/08/28/66cf2c6db4aea.jpg">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>呼吸灯 - Zhang&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/photo/iconfont.css">
+<link rel="stylesheet" href="/css/vedio/iconfont.css">
+<link rel="stylesheet" href="/css/sing/iconfont.css">
+<link rel="stylesheet" href="/css/love/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhang426fly.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+
+
+<header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Zhang&#39;blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>生活</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/photo/" target="_self">
+                    <i class="iconfont icon-xiangce"></i>
+                    <span>相册</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/video/" target="_self">
+                    <i class="iconfont icon-shipin"></i>
+                    <span>视频</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sing/" target="_self">
+                    <i class="iconfont icon-gequ"></i>
+                    <span>歌单</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/love/" target="_self">
+                    <i class="iconfont icon-love"></i>
+                    <span>Love</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/plan/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>计划</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://bu.dusays.com/2024/08/25/66cb327134384.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="呼吸灯"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-28 21:47" pubdate>
+          2024年8月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid nopadding-x">
+
+    <div class="row nomargin-x" >
+        <div class="side-col d-none d-lg-block col-lg-2" >
+            
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="FPGA"
+        id="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7" role="tab" data-toggle="collapse" href="#collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+        aria-expanded="true"
+      >
+        FPGA
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+           role="tabpanel" aria-labelledby="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/08/28/fpga/FPGA%E5%91%BC%E5%90%B8%E7%81%AF/" title="呼吸灯"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">呼吸灯</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/08/11/fpga/%E6%8C%89%E9%94%AE%E6%B6%88%E6%8A%96%E5%8E%9F%E7%90%86%E5%9B%BE/" title="按键消抖"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">按键消抖</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+        </div>
+
+        <div class="col-lg-8 nopadding-x-md" >
+            <div class="container nopadding-x-md" id="board-ctn">
+                <div id="board">
+                    <article class="post-content mx-auto">
+                        <h1 id="seo-header">呼吸灯</h1>
+                        
+                            <p id="updated-time" class="note note-info"
+                               style="">
+                                
+                                    
+                                        本文最后更新于 2024年8月31日 中午
+                                    
+                                
+                            </p>
+                        
+                        
+                            <div class="markdown-body">
+                                
+                                <h2 id="FPGA呼吸灯"><a href="#FPGA呼吸灯" class="headerlink" title="FPGA呼吸灯"></a>FPGA呼吸灯</h2><blockquote>
+<p>PWM（ Pulse Width Modulation），即脉冲宽度调制，它是利用微处理器输出的 PWM 信号对模拟电路进行控制的一种非常有效的技术，广泛应用于测量、通信功率控制等领域。在由计数器产生固定周期的 PWM 信号下，如果其占空比为 0，则 LED 灯不亮；如果其占空比为100%，则 LED 灯最亮。将占空比从 0 到100%，再从 100%到 0 不断变化，就可以实现 LED 灯的“ 呼吸”效果。</p>
+</blockquote>
+<p>PWM 占空比调节示意图如下图所示：  </p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2adb99110.png" srcset="/img/loading.gif" lazyload alt="image-20240828210622775.png"></p>
+<h2 id="2、绘制波形图"><a href="#2、绘制波形图" class="headerlink" title="2、绘制波形图"></a>2、绘制波形图</h2><p><strong>根据呼吸灯的实际效果我们可知，呼吸灯是由两个部分组成，一个是由亮到暗的过程，一个是由暗到亮的过程，再由简介可知我们是在固定的频率下通过调整 高电平的占空比来调控 led 灯的亮度。LED 灯的亮度由亮到暗变化，就是 led 灯信号的高电平占空比开始递减，如图 所示； LED 灯的亮度由暗到亮变化，就是 led 灯信号的高电平占空比开始递增，如图所示；因此，我们需要定义一个 led 灯高电平占空比递增&#x2F;递减信号 <strong>inc_dec_flag</strong>。</strong>  </p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2adabcdc2.png" srcset="/img/loading.gif" lazyload alt="image-20240828211330065.png"></p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2adc70136.png" srcset="/img/loading.gif" lazyload alt="image-20240828211347397.png"></p>
+<p><strong>本实验中我们将由暗到亮的渐变过程定义为 2s，接下来我们将这 2s 分成 1000 份，就是由暗到亮的渐变过程中有 1000 个亮度过渡，每一份过渡时间为 2ms；接下开我们再将每一份过渡时间 2ms 均分为 1000份，每份时间为 2us，我们以 2us 为单位递减 2ms 中的高电平的占空比，随着高电平占空比的不断减少，led 灯的亮度不断变暗。</strong>  </p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2add4ff4b.png" srcset="/img/loading.gif" lazyload alt="image-20240828213940695.png"></p>
+<p><strong>通过观察上面的波形图我们发现 cnt_2s 计数值为 0 时， cnt_2ms 有一个计数值 0 小于等于 cnt_2s 计数值 0； cnt_2s 计数值为 1 时， cnt_2ms 有两个计数值 0 与 1 都小于等于 cnt_2s 计数值 1； cnt_2s 计数值为 2时， cnt_2ms 有三个计数值 0、 1 与 2 都小于等于 cnt_2s 计数值 2；随着 cnt_2s 计数值从 0 到 999 增加，直到 cnt_2s 计数值为 999 时， cnt_2ms 的 1000 个计数值都是小于等于 cnt_2s 的计数值 999。由上面的分析总结可知， cnt_2ms 计数值小于等于 cnt_2s 计数值的个数从 1 到 1000 在逐渐增多，并且每次是以 2us 的时间增加的。由此我们可以定义 cnt_2ms 值小于等于 cnt_2s 计数值时，我们给 led 灯高电平，否则给 led 低电平。cnt_2s 计数的 1000 个值等价于 led 从暗到亮的 1000 个过渡期的编号，那么每个过渡期的时长是 2ms。第一个暗到亮的过渡期即 cnt_2s 计数值为 0 时， 我们在第一个 2ms 的时间内给 led 一个 2us 时间的高电平，其余时间全部赋值低电平； cnt_2s 计数值为 1 时，我们在第二个 2ms 的时间内给 led 灯两个 2us 时间的高电平，其余时间全部赋值低电平； cnt_2s 计数值为 2 时，我们在第三个 2ms 的时间内给 led 灯三个 2us 时间的高电平，其余时间全部赋值低电平；直到 cnt_2s 计数值为 999 时，我们在第一千个 2ms 的时间内给 led灯一千个 2us 的高电平，即此时 led 灯 2ms 内全部高电平， led 灯最亮。由上面的分析我们可以绘制呼吸灯由暗变亮过程的波形图如下所示：</strong>  </p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2ade359e0.png" srcset="/img/loading.gif" lazyload alt="image-20240828214234284.png"></p>
+<p><img src="https://bu.dusays.com/2024/08/28/66cf2adf10980.png" srcset="/img/loading.gif" lazyload alt="image-20240828214302805.png"></p>
+<h2 id="3、编写代码"><a href="#3、编写代码" class="headerlink" title="3、编写代码"></a>3、编写代码</h2><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><br><span class="hljs-keyword">module</span> breath_led(<br>     <span class="hljs-keyword">input</span>       sys_clk ,      <span class="hljs-comment">//系统时钟 50MHz</span><br>     <span class="hljs-keyword">input</span>       sys_rst_n ,    <span class="hljs-comment">//系统复位，低电平有效</span><br>     <br>     <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span>  led            <span class="hljs-comment">//LED灯</span><br>);<br><br><span class="hljs-comment">//parameter define</span><br><span class="hljs-keyword">parameter</span> CNT_2US_MAX = <span class="hljs-number">7&#x27;d100</span>;    <br><span class="hljs-keyword">parameter</span> CNT_2MS_MAX = <span class="hljs-number">10&#x27;d1000</span>; <br><span class="hljs-keyword">parameter</span> CNT_2S_MAX  = <span class="hljs-number">10&#x27;d1000</span>; <br><br><span class="hljs-comment">//reg define</span><br><span class="hljs-keyword">reg</span> [<span class="hljs-number">6</span>:<span class="hljs-number">0</span>] cnt_2us; <br><span class="hljs-keyword">reg</span> [<span class="hljs-number">9</span>:<span class="hljs-number">0</span>] cnt_2ms;   <br><span class="hljs-keyword">reg</span> [<span class="hljs-number">9</span>:<span class="hljs-number">0</span>] cnt_2s ;     <br><span class="hljs-keyword">reg</span>       inc_dec_flag; <span class="hljs-comment">//亮度递增/递减 0:递增 1:递减</span><br><br><span class="hljs-comment">//*****************************************************</span><br><span class="hljs-comment">//**                  main code</span><br><span class="hljs-comment">//*****************************************************</span><br><br><span class="hljs-comment">//cnt_2us:计数2us</span><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> sys_clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">negedge</span> sys_rst_n) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(!sys_rst_n)<br>        cnt_2us &lt;= <span class="hljs-number">7&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2us == (CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span> ))<br>        cnt_2us &lt;= <span class="hljs-number">7&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span><br>        cnt_2us &lt;= cnt_2us + <span class="hljs-number">7&#x27;b1</span>;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">//cnt_2ms:计数2ms</span><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> sys_clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">negedge</span> sys_rst_n) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(!sys_rst_n)<br>        cnt_2ms &lt;= <span class="hljs-number">10&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2ms == (CNT_2MS_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2us == (CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span>))<br>        cnt_2ms &lt;= <span class="hljs-number">10&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2us == CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span>)<br>        cnt_2ms &lt;= cnt_2ms + <span class="hljs-number">10&#x27;b1</span>;<br>    <span class="hljs-keyword">else</span><br>        cnt_2ms &lt;= cnt_2ms;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">//cnt_2s:计数2s</span><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> sys_clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">negedge</span> sys_rst_n) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(!sys_rst_n)<br>        cnt_2s &lt;= <span class="hljs-number">10&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2s == (CNT_2S_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2ms == (CNT_2MS_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2us == (CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span>))<br>        cnt_2s &lt;= <span class="hljs-number">10&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2ms == (CNT_2MS_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2us == (CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span>))<br>        cnt_2s &lt;= cnt_2s + <span class="hljs-number">10&#x27;b1</span>;<br>    <span class="hljs-keyword">else</span><br>        cnt_2s &lt;= cnt_2s;         <br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">//inc_dec_flag为低电平，led灯由暗变亮，inc_dec_flag为高电平，led灯由亮变暗</span><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> sys_clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">negedge</span> sys_rst_n) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(!sys_rst_n)<br>        inc_dec_flag &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(cnt_2s == (CNT_2S_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2ms ==( CNT_2MS_MAX - <span class="hljs-number">10&#x27;b1</span>) <br>    &amp;&amp; cnt_2us == (CNT_2US_MAX - <span class="hljs-number">7&#x27;b1</span>))<br>        inc_dec_flag &lt;= ~inc_dec_flag;<br>    <span class="hljs-keyword">else</span><br>        inc_dec_flag &lt;= inc_dec_flag;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">//led:输出信号连接到外部的led灯</span><br><span class="hljs-keyword">always</span>@(<span class="hljs-keyword">posedge</span> sys_clk <span class="hljs-keyword">or</span> <span class="hljs-keyword">negedge</span> sys_rst_n) <span class="hljs-keyword">begin</span><br>    <span class="hljs-keyword">if</span>(!sys_rst_n)<br>        led &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>((inc_dec_flag == <span class="hljs-number">1&#x27;b1</span> &amp;&amp; cnt_2ms &gt;= cnt_2s) <br>    || (inc_dec_flag == <span class="hljs-number">1&#x27;b0</span> &amp;&amp; cnt_2ms &lt;= cnt_2s))<br>        led &lt;= <span class="hljs-number">1&#x27;b1</span>;<br>    <span class="hljs-keyword">else</span><br>        led &lt;= <span class="hljs-number">1&#x27;b0</span>;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+
+<p>仿真文件</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 1ns / 1ns        </span><span class="hljs-comment">//仿真单位/仿真精度</span><br><br><span class="hljs-keyword">module</span> tb_breath_led();<br><br><span class="hljs-comment">//parameter define</span><br><span class="hljs-keyword">parameter</span> CLK_PERIOD  = <span class="hljs-number">20</span>;       <span class="hljs-comment">//时钟周期 20ns</span><br><span class="hljs-keyword">parameter</span> CNT_2US_MAX = <span class="hljs-number">6&#x27;d2</span>;<br><span class="hljs-keyword">parameter</span> CNT_2MS_MAX = <span class="hljs-number">11&#x27;d10</span>;<br><span class="hljs-keyword">parameter</span> CNT_2S_MAX  = <span class="hljs-number">11&#x27;d10</span>;<br><br><span class="hljs-comment">//reg define</span><br><span class="hljs-keyword">reg</span>           sys_clk;<br><span class="hljs-keyword">reg</span>           sys_rst_n;<br><br><span class="hljs-comment">//wire define</span><br><span class="hljs-keyword">wire</span>          led;<br><br><span class="hljs-comment">//信号初始化</span><br><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span><br>    sys_clk &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>    sys_rst_n &lt;= <span class="hljs-number">1&#x27;b0</span>;<br>    #<span class="hljs-number">200</span><br>    sys_rst_n &lt;= <span class="hljs-number">1&#x27;b1</span>;<br><span class="hljs-keyword">end</span><br><br><span class="hljs-comment">//产生时钟</span><br><span class="hljs-keyword">always</span> <span class="hljs-variable">#(CLK_PERIOD/2)</span> sys_clk = ~sys_clk;<br><br><span class="hljs-comment">//例化待测设计</span><br>breath_led #(<br>    <span class="hljs-variable">.CNT_2US_MAX</span>     (CNT_2US_MAX),<br>    <span class="hljs-variable">.CNT_2MS_MAX</span>     (CNT_2MS_MAX),<br>    <span class="hljs-variable">.CNT_2S_MAX</span>       (CNT_2S_MAX)<br>)u_breath_led(<br>    <span class="hljs-variable">.sys_clk</span>           (sys_clk),<br>    <span class="hljs-variable">.sys_rst_n</span>         (sys_rst_n),<br>    <span class="hljs-variable">.led</span>              (led)<br>    );<br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+
+
+                                
+                                <p class="note note-primary">
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文作者:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">zhangJinLong</span><br>
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文链接:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">https://zhang426fly.github.io/2024/08/28/fpga/FPGA呼吸灯/</span><br>
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">版权声明:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">本博客所有文章除特别声明外，均采用BY-NC-SA许可协议。转载请注明出处！</span>
+                                </p>
+                            </div>
+                        
+                        <hr/>
+                        <div>
+                            <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/FPGA/" class="category-chain-item">FPGA</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/FPGA/" class="print-no-link">#FPGA</a>
+      
+    </div>
+  
+</div>
+
+
+                            
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>呼吸灯</div>
+      <div>https://zhang426fly.github.io/2024/08/28/fpga/FPGA呼吸灯/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zhangJinLong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+                            
+                                <div class="post-prevnext my-3">
+                                    <article class="post-prev col-6">
+                                        
+                                        
+                                            <a href="/2024/08/31/Fluid/Fluid%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/" title="Fluid主题美化">
+                                                <i class="iconfont icon-arrowleft"></i>
+                                                <span class="hidden-mobile">Fluid主题美化</span>
+                                                <span class="visible-mobile">上一篇</span>
+                                            </a>
+                                        
+                                    </article>
+                                    <article class="post-next col-6">
+                                        
+                                        
+                                            <a href="/2024/08/27/goland/Goland%E5%BC%80%E5%B1%B1%E7%AF%87/" title="Goland基础">
+                                                <span class="hidden-mobile">Goland基础</span>
+                                                <span class="visible-mobile">下一篇</span>
+                                                <i class="iconfont icon-arrowright"></i>
+                                            </a>
+                                        
+                                    </article>
+                                </div>
+                            
+                        </div>
+
+                        
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"zhang426fly/comments","repo-id":"R_kgDOMqwM-w","category":"Announcements","category-id":"DIC_kwDOMqwM-84CiGPK","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-col d-none d-lg-block col-lg-2">
+            
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+        <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+            <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+        </a>
+    
+
+    
+        <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+</main>
+
+<footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+</footer>
+
+<!-- Scripts -->
+
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+
+
+<noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+</noscript>
+</body>
+</html>
