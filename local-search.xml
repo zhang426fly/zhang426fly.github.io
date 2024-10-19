@@ -4,6 +4,131 @@
   
   
   <entry>
+    <title>约束系统介绍与后处理</title>
+    <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/"/>
+    <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/</url>
+    
+    <content type="html"><![CDATA[<h2 id="约束系统介绍与后处理"><a href="#约束系统介绍与后处理" class="headerlink" title="约束系统介绍与后处理"></a>约束系统介绍与后处理</h2><p><img src="https://bu.dusays.com/2024/10/19/671359370983f.png" alt="image-20241019121952070.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359355e786.png" alt="image-20241019122046996.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135934dc037.png" alt="image-20241019122102966.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359355c913.png" alt="image-20241019122131463.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135936aebc4.png" alt="image-20241019122147105.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135934dc02d.png" alt="image-20241019122218935.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135938dfcda.png" alt="image-20241019122237145.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135937e5d8a.png" alt="image-20241019122257519.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359378f6f8.png" alt="image-20241019122317506.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359389b4da.png" alt="image-20241019122347589.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359398b401.png" alt="image-20241019122403637.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593942638.png" alt="image-20241019122422824.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593a729a0.png" alt="image-20241019122437586.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593aa1d2e.png" alt="image-20241019122500852.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593aee5df.png" alt="image-20241019122515852.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593b65dbc.png" alt="image-20241019122534291.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593bbdf14.png" alt="image-20241019122554585.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593c2f634.png" alt="image-20241019122617120.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593c794a7.png" alt="image-20241019122635529.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593d8c565.png" alt="image-20241019122659733.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593d8073c.png" alt="image-20241019122715409.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593e7378f.png" alt="image-20241019122730689.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593e1cdb5.png" alt="image-20241019122753026.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593eba069.png" alt="image-20241019122818610.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593f75eb8.png" alt="image-20241019122843728.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713593fd4f1c.png" alt="image-20241019122858050.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594042a16.png" alt="image-20241019122922802.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135940d4ea8.png" alt="image-20241019122937228.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594129403.png" alt="image-20241019122949955.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135942a46da.png" alt="image-20241019123006024.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Primer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>仿真</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>安全气囊建模</title>
+    <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/"/>
+    <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安全气囊建模"><a href="#安全气囊建模" class="headerlink" title="安全气囊建模"></a>安全气囊建模</h2><p><img src="https://bu.dusays.com/2024/10/19/67135953c1aaf.png" alt="image-20241019123735987.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595320b65.png" alt="image-20241019123744774.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135957d5828.png" alt="image-20241019123754291.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135957b1ed7.png" alt="image-20241019123804050.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135957149c0.png" alt="image-20241019123814684.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135958e45df.png" alt="image-20241019123825652.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135957c66ff.png" alt="image-20241019123833937.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135958d6705.png" alt="image-20241019123843565.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595b1b0a0.png" alt="image-20241019123854657.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595b14d6a.png" alt="image-20241019123908354.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595b173d9.png" alt="image-20241019123922074.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135959f27cf.png" alt="image-20241019123930161.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595bec3e3.png" alt="image-20241019123939984.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595b67b01.png" alt="image-20241019123950445.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Primer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>仿真</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>安全带建模</title>
+    <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/"/>
+    <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="安全带建模"><a href="#安全带建模" class="headerlink" title="安全带建模"></a>安全带建模</h2><p><img src="https://bu.dusays.com/2024/10/19/6713594db3fda.png" alt="image-20241019123445107.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594d0ca2a.png" alt="image-20241019123456361.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594d0d081.png" alt="image-20241019123507062.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594d10b5d.png" alt="image-20241019123516093.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594e1e4b6.png" alt="image-20241019123527795.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594e15e8e.png" alt="image-20241019123544212.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594f9c2de.png" alt="image-20241019123552824.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713594fa117d.png" alt="image-20241019123601874.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135951d0c92.png" alt="image-20241019123612786.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135951ca879.png" alt="image-20241019123621836.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359524d43f.png" alt="image-20241019123630407.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595241baa.png" alt="image-20241019123641421.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Primer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>仿真</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>假人姿态调整</title>
+    <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/"/>
+    <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/</url>
+    
+    <content type="html"><![CDATA[<h2 id="假人姿态调节"><a href="#假人姿态调节" class="headerlink" title="假人姿态调节"></a>假人姿态调节</h2><p><img src="https://bu.dusays.com/2024/10/19/671359440269b.png" alt="image-20241019123146246.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135943b3e9b.png" alt="image-20241019123156967.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359443f024.png" alt="image-20241019123210064.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359455206a.png" alt="image-20241019123222508.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135944dde5f.png" alt="image-20241019123238165.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135945d6deb.png" alt="image-20241019123303137.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135948ed02c.png" alt="image-20241019123314729.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135949a799c.png" alt="image-20241019123325617.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359485cc3d.png" alt="image-20241019123334059.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135946e8671.png" alt="image-20241019123344550.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Primer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>仿真</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>仿真其他设置</title>
+    <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/"/>
+    <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="仿真其他设置"><a href="#仿真其他设置" class="headerlink" title="仿真其他设置"></a>仿真其他设置</h2><p><img src="https://bu.dusays.com/2024/10/19/6713595c3e140.png" alt="image-20241019124110831.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595cc9783.png" alt="image-20241019124120015.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595c820c6.png" alt="image-20241019124129335.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595d37451.png" alt="image-20241019124144288.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595d41d6a.png" alt="image-20241019124152582.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595d7df75.png" alt="image-20241019124205686.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595df2e3c.png" alt="image-20241019124214205.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595db5beb.png" alt="image-20241019124224466.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595ee8260.png" alt="image-20241019124238866.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595fd9bfa.png" alt="image-20241019124249169.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713595fcfb97.png" alt="image-20241019124303622.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359616ecda.png" alt="image-20241019124313392.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596166402.png" alt="image-20241019124326230.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596165526.png" alt="image-20241019124338422.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359630fba4.png" alt="image-20241019124356004.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596309754.png" alt="image-20241019124411258.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596302554.png" alt="image-20241019124424419.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135964bc3fb.png" alt="image-20241019124439971.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135964b76ec.png" alt="image-20241019124448293.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596362dd6.png" alt="image-20241019124458360.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359671e80f.png" alt="image-20241019124508472.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596529ba0.png" alt="image-20241019124522657.png"></p><p><img src="https://bu.dusays.com/2024/10/19/67135965c9911.png" alt="image-20241019124532127.png"></p><p><img src="https://bu.dusays.com/2024/10/19/6713596725b4e.png" alt="image-20241019124546574.png"></p><p><img src="https://bu.dusays.com/2024/10/19/671359679a848.png" alt="image-20241019124555807.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Primer</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>仿真</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>机械设计基础</title>
     <link href="/2024/09/03/PDF02/"/>
     <url>/2024/09/03/PDF02/</url>
