@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>QT基础</title>
+    <link href="/2024/11/30/PDF03/"/>
+    <url>/2024/11/30/PDF03/</url>
+    
+    <content type="html"><![CDATA[<p class="note note-primary">转载于黑马程序员，在此致谢！</p> <!-- 在线显示PDF --> <!-- 第一种方式，可调整pdf显示的大小，比较灵活 --> <embed src="qt.pdf" width="100%" height="1000" type="application/pdf">]]></content>
+    
+    
+    <categories>
+      
+      <category>QT</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>QT</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>约束系统介绍与后处理</title>
     <link href="/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/"/>
     <url>/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/</url>
