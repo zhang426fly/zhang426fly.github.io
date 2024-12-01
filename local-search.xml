@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>串口配置</title>
+    <link href="/2024/12/01/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/"/>
+    <url>/2024/12/01/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/</url>
+    
+    <content type="html"><![CDATA[<h2 id="串口配置"><a href="#串口配置" class="headerlink" title="串口配置"></a>串口配置</h2><p><img src="https://bu.dusays.com/2024/12/01/674bd37216288.png" alt="image-20241201105933946.png"></p><p><img src="https://bu.dusays.com/2024/12/01/674bd371f364a.png" alt="image-20241201110004347.png"></p><p><img src="https://bu.dusays.com/2024/12/01/674bd371e1d7e.png" alt="image-20241201110048791.png"></p><p><img src="https://bu.dusays.com/2024/12/01/674bd371c3ff9.png" alt="image-20241201110109193.png"></p><p><img src="https://bu.dusays.com/2024/12/01/674bd371f38ce.png" alt="image-20241201110223888.png"></p><h3 id="printf函数配置"><a href="#printf函数配置" class="headerlink" title="printf函数配置"></a>printf函数配置</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;usart.h&quot;</span></span><br><br><span class="hljs-comment">/* USER CODE BEGIN 0 */</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;stdio.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> __GNUC__</span><br>  <span class="hljs-comment">/* With GCC/RAISONANCE, small printf (option LD Linker-&gt;Libraries-&gt;Small printf</span><br><span class="hljs-comment">     set to &#x27;Yes&#x27;) calls __io_putchar() */</span><br>  <span class="hljs-meta">#<span class="hljs-keyword">define</span> PUTCHAR_PROTOTYPE int __io_putchar(int ch)</span><br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>  <span class="hljs-meta">#<span class="hljs-keyword">define</span> PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">/* __GNUC__ */</span></span><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * @brief  Retargets the C library printf function to the USART.</span><br><span class="hljs-comment">  * @param  None</span><br><span class="hljs-comment">  * @retval None</span><br><span class="hljs-comment">  */</span><br>PUTCHAR_PROTOTYPE<br>&#123;<br>  <span class="hljs-comment">/* Place your implementation of fputc here */</span><br>  <span class="hljs-comment">/* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */</span><br>  HAL_UART_Transmit(&amp;huart1, (<span class="hljs-type">uint8_t</span> *)&amp;ch, <span class="hljs-number">1</span>, <span class="hljs-number">0xFFFF</span>);<br><br>  <span class="hljs-keyword">return</span> ch;<br>&#125;<br><span class="hljs-comment">/* USER CODE END 0 */</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>stm32</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>stm32</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>内存对齐</title>
     <link href="/2024/12/01/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/"/>
     <url>/2024/12/01/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/</url>
