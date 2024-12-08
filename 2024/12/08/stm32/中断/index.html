@@ -19,16 +19,16 @@
   <meta name="author" content="zhangJinLong">
   <meta name="keywords" content="FPGA stm32 C++ C Goland">
   
-    <meta name="description" content="写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频，在此感谢！！！ B站链接：第61讲 入门篇-中断的使用和HAL库中断回调处理机制_哔哩哔哩_bilibili 一、什么是中断中断：打断CP">
+    <meta name="description" content="写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频以及CSDN博主King~30+ ，在此感谢！！！https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_56399733&#x2F;article&#x2F;det">
 <meta property="og:type" content="article">
 <meta property="og:title" content="STM32中断">
 <meta property="og:url" content="https://zhang426fly.github.io/2024/12/08/stm32/%E4%B8%AD%E6%96%AD/index.html">
 <meta property="og:site_name" content="Zhang&#39;blog">
-<meta property="og:description" content="写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频，在此感谢！！！ B站链接：第61讲 入门篇-中断的使用和HAL库中断回调处理机制_哔哩哔哩_bilibili 一、什么是中断中断：打断CP">
+<meta property="og:description" content="写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频以及CSDN博主King~30+ ，在此感谢！！！https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_56399733&#x2F;article&#x2F;det">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png">
 <meta property="article:published_time" content="2024-12-08T10:38:21.688Z">
-<meta property="article:modified_time" content="2024-12-08T10:39:37.132Z">
+<meta property="article:modified_time" content="2024-12-08T11:23:12.420Z">
 <meta property="article:author" content="zhangJinLong">
 <meta property="article:tag" content="stm32">
 <meta name="twitter:card" content="summary_large_image">
@@ -436,8 +436,7 @@
                             <div class="markdown-body">
                                 
                                 <p><strong>写在前面</strong>：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断；</p>
-<p>本文参考正点原子教学视频，在此感谢！！！</p>
-<p>B站链接：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp?spm_id_from=333.788.player.switch&vd_source=b4e10dbb33873d170fef48a5d0761a80&p=61">第61讲 入门篇-中断的使用和HAL库中断回调处理机制_哔哩哔哩_bilibili</a></p>
+<p>本文参考正点原子教学视频以及CSDN博主King~30+ ，在此感谢！！！</br><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_56399733/article/details/134979299">https://blog.csdn.net/m0_56399733/article/details/134979299</a> </br><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1bv4y1R7dp?spm_id_from=333.788.player.switch&vd_source=b4e10dbb33873d170fef48a5d0761a80&p=61">https://www.bilibili.com/video/BV1bv4y1R7dp?spm_id_from=333.788.player.switch&amp;vd_source=b4e10dbb33873d170fef48a5d0761a80&amp;p=61</a></p>
 <h2 id="一、什么是中断"><a href="#一、什么是中断" class="headerlink" title="一、什么是中断"></a>一、什么是中断</h2><p>中断：打断CPU执行正常的程序，转而处理紧急程序，然后返回原暂停的程序继续运行；</p>
 <p><img src="https://bu.dusays.com/2024/12/08/675575071cb8b.png" srcset="/img/loading.gif" lazyload alt="image-20241208173716432.png"></p>
 <p>例：当你正在写作业时，做到一半又去吃饭，吃完饭后又回来接着原来的作业继续完成。 </p>
@@ -723,11 +722,14 @@
 <p>​    在该开发板上的KEY共有三个按键，本次我们使用的是KEY0，即对PE4进行操作，当按键按下是，PE4输出低电平，当按键未按下时，PE4应为高电平；所以GPIOE_4的工作模式为上拉输入。 </p>
 <h2 id="六、程序设计"><a href="#六、程序设计" class="headerlink" title="六、程序设计"></a>六、程序设计</h2><h3 id="6-1程序设计流程图"><a href="#6-1程序设计流程图" class="headerlink" title="6.1程序设计流程图"></a>6.1程序设计流程图</h3><p><img src="https://bu.dusays.com/2024/12/08/67557505c1d1f.png" srcset="/img/loading.gif" lazyload alt="image-20241208175445887.png"></p>
 <h3 id="6-2中断初始化函数"><a href="#6-2中断初始化函数" class="headerlink" title="6.2中断初始化函数"></a>6.2中断初始化函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span>  <span class="hljs-title function_">exti_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>    GPIO_InitTypeDef  gpio_init_struct;<span class="hljs-comment">//GPIO初始化，时钟使能，引脚，工作模式</span><br>    __HAL_RCC_GPIOE_CLK_ENABLE();<span class="hljs-comment">//使能GPIOE时钟</span><br>    gpio_init_struct.Pin=GPIO_PIN_4;<span class="hljs-comment">//定义引脚</span><br>    gpio_init_struct.Mode=GPIO_MODE_IT_FALLING ;<span class="hljs-comment">//定义工作模式</span><br>    gpio_init_struct.Pull=GPIO_PULLUP ;<span class="hljs-comment">//定义上拉</span><br>    HAL_GPIO_Init(GPIOE,&amp;gpio_init_struct);<span class="hljs-comment">//GPIO/AFIO/EXIT设置</span><br>    HAL_NVIC_SetPriority(EXTI4_IRQn,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>);<span class="hljs-comment">//设置中断优先级</span><br>    HAL_NVIC_EnableIRQ(EXTI4_IRQn);<span class="hljs-comment">//使能中断</span><br>&#125;<br>注：中断分组的设置已经在HAL_Init()函数中配置好了，无需配置，抢占优先级<span class="hljs-number">2</span>位，响应优先级<span class="hljs-number">2</span>位。<br></code></pre></td></tr></table></figure>
-<h3 id="6-3中断服务函数"><a href="#6-3中断服务函数" class="headerlink" title="6.3中断服务函数"></a>6.3中断服务函数</h3><p>​        每开启一个中断，就必须编写其对应的中断服务函数，否则将会导致死机（CPU 将找不到 中断服务函数）。STM32F1 的 IO 口外部中断函数只有 7 个上文已经说明。</p>
-<p>​    中断线 0-4，每个中断线对应一个中断函数，中断线 5-9 共用中断函数EXTI9_5_IRQHandler， 中断线 10-15 共用中断函数 EXTI15_10_IRQHandler。一般情况下，我们可以把中断控制逻辑直 接编写在中断服务函数中，但是 HAL 库把中断处理过程进行了简单封装。</p>
+<h3 id="6-3中断服务函数"><a href="#6-3中断服务函数" class="headerlink" title="6.3中断服务函数"></a>6.3中断服务函数</h3><pre><code class="hljs">    每开启一个中断，就必须编写其对应的中断服务函数，否则将会导致死机（CPU 将找不到 中断服务函数）。STM32F1 的 IO 口外部中断函数只有 7 个上文已经说明。
+</code></pre>
+<p>   中断线 0-4，每个中断线对应一个中断函数，中断线 5-9 共用中断函数EXTI9_5_IRQHandler， 中断线 10-15 共用中断函数 EXTI15_10_IRQHandler。一般情况下，我们可以把中断控制逻辑直 接编写在中断服务函数中，但是 HAL 库把中断处理过程进行了简单封装。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">EXTI4_IRQHandler</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>     HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);<br>     __HAL_GPIO_EXTI_CLEAR_IT(GPIO_PIN_4);<br> &#125;<br> 所有的外部中断服务函数里都只调用了同样一个函数 HAL_GPIO_EXTI_IRQHandler，该函 数是外部中断共用入口函数，函数内部会进行中断标志位清零，并且调用中断处理共用回调函 数 HAL_GPIO_EXTI_Callback。<br></code></pre></td></tr></table></figure>
 
-<h3 id="6-4中断处理回调函数"><a href="#6-4中断处理回调函数" class="headerlink" title="6.4中断处理回调函数"></a>6.4中断处理回调函数</h3><p>​        HAL 库为了用户使用方便，提供了一个中断通用入口函数 HAL_GPIO_EXTI_IRQHandler， 在该函数内部直接调用回调函数 HAL_GPIO_EXTI_Callback。<br><img src="https://bu.dusays.com/2024/12/08/6755750762ca1.png" srcset="/img/loading.gif" lazyload alt="image-20241208175551467.png"> </p>
+<h3 id="6-4中断处理回调函数"><a href="#6-4中断处理回调函数" class="headerlink" title="6.4中断处理回调函数"></a>6.4中断处理回调函数</h3><pre><code class="hljs">    HAL 库为了用户使用方便，提供了一个中断通用入口函数 HAL_GPIO_EXTI_IRQHandler， 在该函数内部直接调用回调函数 HAL_GPIO_EXTI_Callback。
+</code></pre>
+<p><img src="https://bu.dusays.com/2024/12/08/6755750762ca1.png" srcset="/img/loading.gif" lazyload alt="image-20241208175551467.png"> </p>
 <p>  该函数实现的作用非常简单，通过入口参数 GPIO_Pin 判断中断来自哪个 IO 口，然后清除 相应的中断标志位，最后调用回调函数 HAL_GPIO_EXTI_Callback()实现控制逻辑。在所有的外 部中断服务函数中直接调用外部中断共用处理函数 HAL_GPIO_EXTI_IRQHandler，然后在回调 函数 HAL_GPIO_EXTI_Callback 中通过判断中断是来自哪个 IO 口编写相应的中断服务控制逻 辑。</p>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_GPIO_EXTI_Callback</span><span class="hljs-params">(<span class="hljs-type">uint16_t</span> GPIO_Pin)</span><span class="hljs-comment">//实现控制逻辑</span><br>     &#123;<br>      delay_ms(<span class="hljs-number">20</span>);<span class="hljs-comment">//消抖</span><br>         <span class="hljs-keyword">if</span>( GPIO_Pin==GPIO_PIN_4)<span class="hljs-comment">//判断中断来自哪个IO口</span><br>         &#123;<br>              <span class="hljs-keyword">if</span>(HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_4)==<span class="hljs-number">0</span>)<span class="hljs-comment">//判断按键是否按下</span><br>             &#123;<br>                HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5); <span class="hljs-comment">//led0进行状态取反</span><br>             &#125;<br>         &#125;<br>     &#125;<br></code></pre></td></tr></table></figure>
 
