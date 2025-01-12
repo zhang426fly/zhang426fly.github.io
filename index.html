@@ -305,23 +305,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2025/01/07/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
-          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="STM32独立看门狗">
+        <a href="/2025/01/12/stm32/WWDG%E4%BB%8B%E7%BB%8D/" target="_self">
+          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="STM32窗口看门狗">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/01/07/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
-          STM32独立看门狗
+        <a href="/2025/01/12/stm32/WWDG%E4%BB%8B%E7%BB%8D/" target="_self">
+          STM32窗口看门狗
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2025/01/07/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
+      <a class="index-excerpt " href="/2025/01/12/stm32/WWDG%E4%BB%8B%E7%BB%8D/" target="_self">
         <div>
-          一、IWDG简介IWDG全称(Independent watchdog)独立看门狗。 本质：一个能够产生复位信号的计数器。 那么什么是复位信号呢？复位就是使MCU回到初始状态。对于单片机来说，开机的时候需要复位，以便使得CPU和其他功能部件处于一个正确的初始状态，并以此为起点开始工作，当出现死机的情况也应当对其进行复位，用以摆脱死机状态。 系统复位方式共有5种，分别为：  1、硬件复位。 2、WW
+          一、WWDG介绍全称：Windows watchdog，即窗口看门狗； 本质：能产生系统复位信号和提前唤醒中断的计数器； 特性：   递减计数器；  产生复位信号的条件有两个:当递减计数器从0x40减至0x3F时会产生复位信号；当计数器的值大于W[6:0]值时，喂狗会产生复位信号。后面会对这两点做详细的说明。  提前唤醒中断(EWI):当递减计数器等于0x40时，会产生一个提前唤醒中断。    喂
         </div>
       </a>
 
@@ -329,8 +329,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2025-01-07 23:14" pubdate>
-              2025-01-07
+            <time datetime="2025-01-12 18:36" pubdate>
+              2025-01-12
             </time>
           </div>
         
@@ -372,23 +372,23 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/12/08/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
-          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="STM32中断">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/" target="_self">
+          <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="仿真其他设置">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/12/08/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
-          STM32中断
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/" target="_self">
+          仿真其他设置
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/12/08/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
+      <a class="index-excerpt " href="/2025/01/12/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/" target="_self">
         <div>
-          写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频以及CSDN博主King~30+ ，在此感谢！！！https://blog.csdn.net/m0_56399733/article/det
+          仿真其他设置
         </div>
       </a>
 
@@ -396,343 +396,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-08 18:38" pubdate>
-              2024-12-08
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/stm32/">#stm32</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/12/01/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
-          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="串口配置">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/01/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
-          串口配置
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/12/01/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
-        <div>
-          串口配置       printf函数配置1234567891011121314151617181920212223242526#include &quot;usart.h&quot;/* USER CODE BEGIN 0 */#include &quot;stdio.h&quot;#ifdef __GNUC__  /* With GCC/RAISONANCE, small printf (op
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-01 11:06" pubdate>
-              2024-12-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/stm32/">#stm32</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/12/01/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/" target="_self">
-          <img src="https://bu.dusays.com/2024/12/01/674bcd25c4f49.jpg" srcset="/img/loading.gif" lazyload alt="内存对齐">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/01/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/" target="_self">
-          内存对齐
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/12/01/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/" target="_self">
-        <div>
-          内存对齐1、概念 在C语言中，内存对齐（Memory Alignment）是一种编译器为了提高内存访问效率而采用的一种数据存储策略。它要求数据在内存中的存储地址是某个特定值（通常是数据类型大小或其倍数）的整数倍。   为什么要进行内存对齐  提高内存访问速度 现代计算机的内存系统是以字节为单位进行组织的，而CPU在读取内存时，通常是按照字长（如32位CPU一次读取4个字节，64位CPU一次读取8个
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-01 10:38" pubdate>
-              2024-12-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="category-chain-item">C语言</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/12/01/c/cyuyan%E5%9F%BA%E7%A1%80/" target="_self">
-          <img src="https://bu.dusays.com/2024/12/01/674bcd25c4f49.jpg" srcset="/img/loading.gif" lazyload alt="C语言基础">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/12/01/c/cyuyan%E5%9F%BA%E7%A1%80/" target="_self">
-          C语言基础
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/12/01/c/cyuyan%E5%9F%BA%E7%A1%80/" target="_self">
-        <div>
-          1、内建函数1.1 概念 内建函数，顾名思义，就是编译器内部实现的函数。这些函数跟关键字一样，可以直接使用，无须像标准库函数那样，要 #include 对应的头文件才能使用。 内建函数的函数命名，通常以 __builtin 开头。这些函数主要在编译器内部使用，主要是为编译器服务的。内建函数的主要用途如下。    用来处理变长参数列表； 用来处理程序运行异常； 程序的编译优化、性能优化； 查看函数运
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-12-01 10:38" pubdate>
-              2024-12-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="category-chain-item">C语言</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C%E8%AF%AD%E8%A8%80/">#C语言</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/11/30/PDF03/" target="_self">
-          <img src="https://bu.dusays.com/2024/11/30/674a98ac2be89.jpeg" srcset="/img/loading.gif" lazyload alt="QT基础">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/11/30/PDF03/" target="_self">
-          QT基础
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/11/30/PDF03/" target="_self">
-        <div>
-          从入门到精通
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-11-30 12:44" pubdate>
-              2024-11-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/QT/" class="category-chain-item">QT</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/QT/">#QT</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
-          <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="约束系统介绍与后处理">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
-          约束系统介绍与后处理
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2024/10/19/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
-        <div>
-          约束系统介绍与后处理
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-19 16:40" pubdate>
-              2024-10-19
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
             </time>
           </div>
         
@@ -774,7 +439,7 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
           <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="安全气囊建模">
         </a>
       </div>
@@ -782,13 +447,13 @@
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
           安全气囊建模
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/10/19/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
+      <a class="index-excerpt " href="/2025/01/12/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" target="_self">
         <div>
           安全气囊建模
         </div>
@@ -798,8 +463,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-19 16:40" pubdate>
-              2024-10-19
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
             </time>
           </div>
         
@@ -841,7 +506,7 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
           <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="安全带建模">
         </a>
       </div>
@@ -849,13 +514,13 @@
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
           安全带建模
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/10/19/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
+      <a class="index-excerpt " href="/2025/01/12/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" target="_self">
         <div>
           安全带建模
         </div>
@@ -865,8 +530,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-19 16:40" pubdate>
-              2024-10-19
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
             </time>
           </div>
         
@@ -908,7 +573,7 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
           <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="假人姿态调整">
         </a>
       </div>
@@ -916,13 +581,13 @@
     <article class="col-12 col-md-8 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/10/19/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
           假人姿态调整
         </a>
       </h2>
 
       
-      <a class="index-excerpt " href="/2024/10/19/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
+      <a class="index-excerpt " href="/2025/01/12/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" target="_self">
         <div>
           假人姿态调节
         </div>
@@ -932,8 +597,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-10-19 16:40" pubdate>
-              2024-10-19
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
             </time>
           </div>
         
@@ -964,6 +629,341 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E4%BB%BF%E7%9C%9F/">#仿真</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
+          <img src="https://bu.dusays.com/2024/10/19/671372fc8721b.jpeg" srcset="/img/loading.gif" lazyload alt="约束系统介绍与后处理">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
+          约束系统介绍与后处理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/01/12/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" target="_self">
+        <div>
+          约束系统介绍与后处理
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Primer/" class="category-chain-item">Primer</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BB%BF%E7%9C%9F/">#仿真</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/12/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
+          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="串口配置">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/01/12/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
+          串口配置
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/01/12/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" target="_self">
+        <div>
+          串口配置       printf函数配置1234567891011121314151617181920212223242526#include &quot;usart.h&quot;/* USER CODE BEGIN 0 */#include &quot;stdio.h&quot;#ifdef __GNUC__  /* With GCC/RAISONANCE, small printf (op
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/stm32/">#stm32</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/12/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
+          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="STM32中断">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/01/12/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
+          STM32中断
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/01/12/stm32/%E4%B8%AD%E6%96%AD/" target="_self">
+        <div>
+          写在前面：前面的学习中，我们接触了STM32的第一个外设GPIO，这也是最常用的一个外设；而除了GPIO外，中断也是一个十分重要且常用的外设；只有掌握了中断，再处理程序时才能掌握好解决实际问题的逻辑思路。此节我们学习STM32的中断； 本文参考正点原子教学视频以及CSDN博主King~30+ ，在此感谢！！！https://blog.csdn.net/m0_56399733/article/det
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/stm32/">#stm32</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/12/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
+          <img src="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png" srcset="/img/loading.gif" lazyload alt="STM32独立看门狗">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/01/12/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
+          STM32独立看门狗
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/01/12/stm32/IWDG%E7%AE%80%E4%BB%8B/" target="_self">
+        <div>
+          一、IWDG简介IWDG全称(Independent watchdog)独立看门狗。 本质：一个能够产生复位信号的计数器。 那么什么是复位信号呢？复位就是使MCU回到初始状态。对于单片机来说，开机的时候需要复位，以便使得CPU和其他功能部件处于一个正确的初始状态，并以此为起点开始工作，当出现死机的情况也应当对其进行复位，用以摆脱死机状态。 系统复位方式共有5种，分别为：  1、硬件复位。 2、WW
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/stm32/">#stm32</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2025/01/12/goland/Goland%E5%BC%80%E5%B1%B1%E7%AF%87/" target="_self">
+          <img src="https://bu.dusays.com/2024/08/27/66cd125a4b399.jpeg" srcset="/img/loading.gif" lazyload alt="Goland基础">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/01/12/goland/Goland%E5%BC%80%E5%B1%B1%E7%AF%87/" target="_self">
+          Goland基础
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2025/01/12/goland/Goland%E5%BC%80%E5%B1%B1%E7%AF%87/" target="_self">
+        <div>
+          1.1  Golang 的学习方向 Go 语言，我们可以简单的写成 Golang.   1.2 Golang 的应用领域1.2.1 区块链的应用开发 1.2.2 后台服务应用 1.2.3 云计算&#x2F;云服务后台应用 1.3 学习方法的介绍
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-01-12 17:37" pubdate>
+              2025-01-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Goland/" class="category-chain-item">Goland</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Goland/">#Goland</a>
             
           </div>
         

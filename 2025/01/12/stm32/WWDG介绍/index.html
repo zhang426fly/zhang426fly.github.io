@@ -1,0 +1,1017 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  <link rel="icon" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#008C8C">
+  <meta name="author" content="zhangJinLong">
+  <meta name="keywords" content="FPGA stm32 C++ C Goland">
+  
+    <meta name="description" content="一、WWDG介绍全称：Windows watchdog，即窗口看门狗； 本质：能产生系统复位信号和提前唤醒中断的计数器； 特性：   递减计数器；  产生复位信号的条件有两个:当递减计数器从0x40减至0x3F时会产生复位信号；当计数器的值大于W[6:0]值时，喂狗会产生复位信号。后面会对这两点做详细的说明。  提前唤醒中断(EWI):当递减计数器等于0x40时，会产生一个提前唤醒中断。    喂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="STM32窗口看门狗">
+<meta property="og:url" content="https://zhang426fly.github.io/2025/01/12/stm32/WWDG%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="Zhang&#39;blog">
+<meta property="og:description" content="一、WWDG介绍全称：Windows watchdog，即窗口看门狗； 本质：能产生系统复位信号和提前唤醒中断的计数器； 特性：   递减计数器；  产生复位信号的条件有两个:当递减计数器从0x40减至0x3F时会产生复位信号；当计数器的值大于W[6:0]值时，喂狗会产生复位信号。后面会对这两点做详细的说明。  提前唤醒中断(EWI):当递减计数器等于0x40时，会产生一个提前唤醒中断。    喂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png">
+<meta property="article:published_time" content="2025-01-12T10:36:26.885Z">
+<meta property="article:modified_time" content="2025-01-12T10:46:45.574Z">
+<meta property="article:author" content="zhangJinLong">
+<meta property="article:tag" content="stm32">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://bu.dusays.com/2024/12/01/674bd4e31efa7.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>STM32窗口看门狗 - Zhang&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/photo/iconfont.css">
+<link rel="stylesheet" href="/css/vedio/iconfont.css">
+<link rel="stylesheet" href="/css/sing/iconfont.css">
+<link rel="stylesheet" href="/css/love/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhang426fly.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+
+
+<header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Zhang&#39;blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>生活</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/photo/" target="_self">
+                    <i class="iconfont icon-xiangce"></i>
+                    <span>相册</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/video/" target="_self">
+                    <i class="iconfont icon-shipin"></i>
+                    <span>视频</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sing/" target="_self">
+                    <i class="iconfont icon-gequ"></i>
+                    <span>歌单</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/love/" target="_self">
+                    <i class="iconfont icon-love"></i>
+                    <span>Love</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/plan/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>计划</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://bu.dusays.com/2024/08/25/66cb327134384.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="STM32窗口看门狗"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-12 18:36" pubdate>
+          2025年1月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid nopadding-x">
+
+    <div class="row nomargin-x" >
+        <div class="side-col d-none d-lg-block col-lg-2" >
+            
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="stm32"
+        id="heading-f3288450e15100c5e9ea0541398b5ab6" role="tab" data-toggle="collapse" href="#collapse-f3288450e15100c5e9ea0541398b5ab6"
+        aria-expanded="true"
+      >
+        stm32
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-f3288450e15100c5e9ea0541398b5ab6"
+           role="tabpanel" aria-labelledby="heading-f3288450e15100c5e9ea0541398b5ab6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/01/12/stm32/%E4%B8%AD%E6%96%AD/" title="STM32中断"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">STM32中断</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/12/stm32/IWDG%E7%AE%80%E4%BB%8B/" title="STM32独立看门狗"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">STM32独立看门狗</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/12/stm32/WWDG%E4%BB%8B%E7%BB%8D/" title="STM32窗口看门狗"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">STM32窗口看门狗</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/12/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" title="串口配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">串口配置</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+        </div>
+
+        <div class="col-lg-8 nopadding-x-md" >
+            <div class="container nopadding-x-md" id="board-ctn">
+                <div id="board">
+                    <article class="post-content mx-auto">
+                        <h1 id="seo-header">STM32窗口看门狗</h1>
+                        
+                            <p id="updated-time" class="note note-info"
+                               style="">
+                                
+                                    
+                                        本文最后更新于 2025年1月12日 晚上
+                                    
+                                
+                            </p>
+                        
+                        
+                            <div class="markdown-body">
+                                
+                                <h2 id="一、WWDG介绍"><a href="#一、WWDG介绍" class="headerlink" title="一、WWDG介绍"></a>一、WWDG介绍</h2><p><strong>全称</strong>：Windows watchdog，即窗口看门狗；</p>
+<p><strong>本质</strong>：能产生<strong>系统复位信号</strong>和<strong>提前唤醒中断</strong>的计数器；</p>
+<p><strong>特性：</strong></p>
+<blockquote>
+<ol>
+<li><p>递减计数器；</p>
+</li>
+<li><p>产生复位信号的条件有两个:当递减计数器从0x40减至0x3F时会产生复位信号；当计数器的值大于W[6:0]值时，喂狗会产生复位信号。后面会对这两点做详细的说明。</p>
+</li>
+<li><p>提前唤醒中断(EWI):当递减计数器等于0x40时，会产生一个提前唤醒中断。</p>
+</li>
+</ol>
+</blockquote>
+<p><strong>喂狗</strong>：在窗口期内重装载计数器的值，防止复位信号的产生；</p>
+<p><strong>作用</strong>：用于监测单片机程序运行时效是否准确，主要检测软件异常。</p>
+<p><strong>应用</strong>：在需要精准检测程序运行时间的场合；</p>
+<h2 id="二、WWDG工作原理"><a href="#二、WWDG工作原理" class="headerlink" title="二、WWDG工作原理"></a>二、WWDG工作原理</h2><p>其工作原理用下图可以进行一个很好的说明：</p>
+<p><img src="https://bu.dusays.com/2025/01/12/67839bceabad1.png" srcset="/img/loading.gif" lazyload alt="image-20250112181042101.png"></p>
+<blockquote>
+<p>  如上图所示：首先WWDG的本质是一个递减计数器，是一个能够产生复位信号以及中断信号的递减计数器 ，纵坐标为递减计数器的值，此递减计数器共有7位(T[6:0]),这样递减计数器的最大值位127，而且递减计数器的值是可以进行软件设置的。    递减计数器的值一旦给定后，随着时钟信号的到来，递减计数器的值进行递减。此时我们会设置一个窗口上限值W[6:0],窗口上限值共7位，最大值为127。在递减计数器初值与窗口上限期这一段时间，我们称为非窗口期，这个时期内喂狗就会产生复位。既然有窗口上限值，那么也一定有窗口下限值，窗口下限值为0x3F，是固定的不能改变。那么窗口上限值就必须比窗口下限值高，否则无窗口期。窗口期就是窗口上限值到窗口下限值之间的时期。在窗口期内进行喂狗是不会产生复位的，而当递减计数器的值减至窗口下限值时，也会产生复位。</p>
+<p>此外，如果启动了看门狗并且允许中断，当递减计数器等于0x40时产生早期唤醒中断(EWI)。</p>
+</blockquote>
+<p>综上所述：</p>
+<p><strong>产生复位的条件：</strong></p>
+<blockquote>
+<p>1、当递减计数器的值小于0x40，(若看门狗被启动)则产生复位。</p>
+<p>2、 当递减计数器在窗口外被重新装载，(若看门狗被启动)则产生复位。</p>
+</blockquote>
+<p><strong>产生中断的条件：</strong></p>
+<blockquote>
+<p>启动了看门狗并且允许中断，当递减计数器等于0x40时产生早期唤醒中断(EWI)。</p>
+</blockquote>
+<h2 id="三、WWDG工作框图"><a href="#三、WWDG工作框图" class="headerlink" title="三、WWDG工作框图"></a>三、WWDG工作框图</h2><p><img src="https://bu.dusays.com/2025/01/12/67839bd192794.png" srcset="/img/loading.gif" lazyload alt="image-20250112181142837.png"></p>
+<p>如上图所示，其WWDG的工作框图或者说是工作流程，首先，WWDG的的时钟信号来自PCLK1，（即图1部分）然后经过看门狗预分频器进行分频（即图2部分）此处也涉及相关的寄存器进行操作。然后再到看门狗控制寄存器（即图3部分），共8位，其中首位为激活位，后面为T[6:0]的值。     看门狗配置寄存器（即图4部分），为窗口上限值，当图3看门狗控制寄存器的值W6大于图4看门狗配置寄存器的值T6，则说明已经进入窗口期（比较器输出0），否则为非窗口期（比较器输出1）。</p>
+<p>在上图的左边还有三个逻辑门电路，</p>
+<blockquote>
+<p>a为一个与门，即要产生复位信号必须有两点：1、WDGA(激活位值1)；2、b门输出1。</p>
+<p>b为一个或门，要产生1有两种选择，1、T6为0（取翻后就是1）即递减计数器减至窗口下限值。2、c门输出1。</p>
+<p>c为一个与门，要产生1必须有两个条件：1、进行喂狗。2、非窗口期（比较器输出1）。</p>
+</blockquote>
+<p>这个电路也满足我们所说的产生复位的两种选择：当递减计数器的值小于0x40，(若看门狗被启动)则产生复位或 当递减计数器在窗口外被重新装载，(若看门狗被启动)则产生复位。</p>
+<h2 id="四、WWDG相关寄存器"><a href="#四、WWDG相关寄存器" class="headerlink" title="四、WWDG相关寄存器"></a>四、WWDG相关寄存器</h2><h3 id="4-1-控制寄存器WWDG-CR"><a href="#4-1-控制寄存器WWDG-CR" class="headerlink" title="4.1 控制寄存器WWDG_CR"></a>4.1 控制寄存器WWDG_CR</h3><p><img src="https://bu.dusays.com/2025/01/12/67839bd32b528.png" srcset="/img/loading.gif" lazyload alt="image-20250112181210073.png"></p>
+<p>该寄存器的功能为：用于使能窗口看门狗工作，以及计数器的值。</p>
+<p>控制寄存器共有8位：</p>
+<blockquote>
+<p>位7：为上面流程图中的WDGA激活位 。</p>
+<p>T[6：0]用来存储看门狗的计数器的值，随时更新的，每隔 （4096×2^ WDGTB[2:0]）PCLK 个周期减 1。当该计数器的值从 0x40 变为 0x3F 的时候，将产生看门狗复位。</p>
+</blockquote>
+<p>注:此处同IWDG不同的是，WWDG中计数器的值可以直接赋，不要在经过什么其他的寄存器进行赋值。</p>
+<h3 id="4-2-配置寄存器（WWDG-CFR）"><a href="#4-2-配置寄存器（WWDG-CFR）" class="headerlink" title="4.2 配置寄存器（WWDG_CFR）"></a>4.2 配置寄存器（WWDG_CFR）</h3><p><img src="https://bu.dusays.com/2025/01/12/67839bd36c18a.png" srcset="/img/loading.gif" lazyload alt="image-20250112181232686.png"></p>
+<p>该寄存器共有10位；</p>
+<blockquote>
+<p><strong>位9</strong>： WEI：提前唤醒中断，如果该位置 1，当递减计数器等于 0x40 时产生提前唤醒中断，我们就可以及时喂狗以避免 WWDG 复位。我们一般都会用该位来设置中断，当窗口看门狗的计数器值减到 0X40 的时候，如果该位设置，并开启了中断，则会产生中断，我们可以在中断里面向 WWDG_CR 重新写入计数器的值，来达到喂狗的目的。需要注意这里在进入中断后，必须在不大于 1 个窗口看门狗计数周期的时间（在 pclk1 频率为 36M 且 WDGTB 为 0 的条件下，该时间为 113us）内重新写 WWDG_CR，否则，看门狗将产生复位！</p>
+<p><strong>位8:7</strong>：WDGTB：设置预分频系数。</p>
+<p><strong>位6:0</strong>：W[6:0]设置窗口上限值。</p>
+</blockquote>
+<h3 id="4-3-状态寄存器WWDG-SR"><a href="#4-3-状态寄存器WWDG-SR" class="headerlink" title="4.3 状态寄存器WWDG_SR"></a>4.3 状态寄存器WWDG_SR</h3><p><img src="https://bu.dusays.com/2025/01/12/67839bd21af74.png" srcset="/img/loading.gif" lazyload alt="image-20250112181258674.png"></p>
+<p> 该寄存器只有一位有效，当计数器值达到40h时，此位由硬件置’1’。它必须通过软件写’0’来清除。对此位写’1’无效。若中断未被使能，此位也会被置’1。主要用于判断是否发生了WWDG提前唤醒中断。</p>
+<h3 id="4-4-WWDG超时时间计算"><a href="#4-4-WWDG超时时间计算" class="headerlink" title="4.4 WWDG超时时间计算"></a>4.4 WWDG超时时间计算</h3><p><img src="https://bu.dusays.com/2025/01/12/67839bd1f32ef.png" srcset="/img/loading.gif" lazyload alt="image-20250112183234669.png"></p>
+<h2 id="五、WWDG配置步骤"><a href="#五、WWDG配置步骤" class="headerlink" title="五、WWDG配置步骤"></a>五、WWDG配置步骤</h2><h3 id="5-1-配置步骤"><a href="#5-1-配置步骤" class="headerlink" title="5.1 配置步骤"></a>5.1 配置步骤</h3><blockquote>
+<p>1、WWDG工作参数初始化 HAL_WWDG_Init();</p>
+<p>2、WWDGMsp初始化 HAL_WWDG_MspIint(); 配置NVIC,Clock等</p>
+<p>3、设置优先级，使能中断 HAL_NVIC_SetPriority()、NVIC_EnabledPQ();</p>
+<p>4、编写中断服务函数 WWDG_IPQHandler()、HAL_WWDG_IPQHandler();</p>
+<p>5、重定义提前唤醒回调函数 HAL_WWDG_EarlyWakeup Callback();</p>
+<p>6、在窗口期喂狗 HAL_WWDG_Refresh();</p>
+</blockquote>
+<h3 id="5-2-相关HAL库函数介绍"><a href="#5-2-相关HAL库函数介绍" class="headerlink" title="5.2 相关HAL库函数介绍"></a>5.2 相关HAL库函数介绍</h3><p><strong>HAL_WWDG_Init()使能WWDG，设置预分频系数和窗口值等</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * @brief  Initialize the WWDG according to the specified.</span><br><span class="hljs-comment">  *         parameters in the WWDG_InitTypeDef of  associated handle.</span><br><span class="hljs-comment">  * @param  hwwdg  pointer to a WWDG_HandleTypeDef structure that contains</span><br><span class="hljs-comment">  *                the configuration information for the specified WWDG module.</span><br><span class="hljs-comment">  * @retval HAL status</span><br><span class="hljs-comment">  */</span><br>HAL_StatusTypeDef <span class="hljs-title function_">HAL_WWDG_Init</span><span class="hljs-params">(WWDG_HandleTypeDef *hwwdg)</span><br>&#123;<br>  <span class="hljs-comment">/* Check the WWDG handle allocation */</span><br>  <span class="hljs-keyword">if</span> (hwwdg == <span class="hljs-literal">NULL</span>)<br>  &#123;<br>    <span class="hljs-keyword">return</span> HAL_ERROR;<br>  &#125;<br><br>  <span class="hljs-comment">/* Check the parameters */</span><br>  assert_param(IS_WWDG_ALL_INSTANCE(hwwdg-&gt;Instance));<br>  assert_param(IS_WWDG_PRESCALER(hwwdg-&gt;Init.Prescaler));<br>  assert_param(IS_WWDG_WINDOW(hwwdg-&gt;Init.Window));<br>  assert_param(IS_WWDG_COUNTER(hwwdg-&gt;Init.Counter));<br>  assert_param(IS_WWDG_EWI_MODE(hwwdg-&gt;Init.EWIMode));<br><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)</span><br>  <span class="hljs-comment">/* Reset Callback pointers */</span><br>  <span class="hljs-keyword">if</span> (hwwdg-&gt;EwiCallback == <span class="hljs-literal">NULL</span>)<br>  &#123;<br>    hwwdg-&gt;EwiCallback = HAL_WWDG_EarlyWakeupCallback;<br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (hwwdg-&gt;MspInitCallback == <span class="hljs-literal">NULL</span>)<br>  &#123;<br>    hwwdg-&gt;MspInitCallback = HAL_WWDG_MspInit;<br>  &#125;<br><br>  <span class="hljs-comment">/* Init the low level hardware */</span><br>  hwwdg-&gt;MspInitCallback(hwwdg);<br><span class="hljs-meta">#<span class="hljs-keyword">else</span></span><br>  <span class="hljs-comment">/* Init the low level hardware */</span><br>  HAL_WWDG_MspInit(hwwdg);<br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">/* USE_HAL_WWDG_REGISTER_CALLBACKS */</span></span><br><br>  <span class="hljs-comment">/* Set WWDG Counter */</span><br>  WRITE_REG(hwwdg-&gt;Instance-&gt;CR, (WWDG_CR_WDGA | hwwdg-&gt;Init.Counter));<br><br>  <span class="hljs-comment">/* Set WWDG Prescaler and Window */</span><br>  WRITE_REG(hwwdg-&gt;Instance-&gt;CFR, (hwwdg-&gt;Init.EWIMode | hwwdg-&gt;Init.Prescaler | hwwdg-&gt;Init.Window));<br><br>  <span class="hljs-comment">/* Return function status */</span><br>  <span class="hljs-keyword">return</span> HAL_OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * @brief  WWDG Init structure definition</span><br><span class="hljs-comment">  */</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span></span><br><span class="hljs-class">&#123;</span><br>  <span class="hljs-type">uint32_t</span> Prescaler;     <span class="hljs-comment">/*!&lt; Specifies the prescaler value of the WWDG.</span><br><span class="hljs-comment">                               This parameter can be a value of @ref WWDG_Prescaler */</span><br><br>  <span class="hljs-type">uint32_t</span> Window;        <span class="hljs-comment">/*!&lt; Specifies the WWDG window value to be compared to the downcounter.</span><br><span class="hljs-comment">                               This parameter must be a number Min_Data = 0x40 and Max_Data = 0x7F */</span><br><br>  <span class="hljs-type">uint32_t</span> Counter;       <span class="hljs-comment">/*!&lt; Specifies the WWDG free-running downcounter  value.</span><br><span class="hljs-comment">                               This parameter must be a number between Min_Data = 0x40 and Max_Data = 0x7F */</span><br><br>  <span class="hljs-type">uint32_t</span> EWIMode ;      <span class="hljs-comment">/*!&lt; Specifies if WWDG Early Wakeup Interrupt is enable or not.</span><br><span class="hljs-comment">                               This parameter can be a value of @ref WWDG_EWI_Mode */</span><br><br>&#125; WWDG_InitTypeDef;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * @brief  WWDG handle Structure definition</span><br><span class="hljs-comment">  */</span><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> __<span class="hljs-title">WWDG_HandleTypeDef</span></span><br><span class="hljs-class">#<span class="hljs-title">else</span></span><br><span class="hljs-class"><span class="hljs-title">typedef</span> <span class="hljs-keyword">struct</span></span><br><span class="hljs-class">#<span class="hljs-title">endif</span> /* <span class="hljs-title">USE_HAL_WWDG_REGISTER_CALLBACKS</span> */</span><br><span class="hljs-class">&#123;</span><br>  WWDG_TypeDef      *Instance;  <span class="hljs-comment">/*!&lt; Register base address */</span><br><br>  WWDG_InitTypeDef  Init;       <span class="hljs-comment">/*!&lt; WWDG required parameters */</span><br><br><span class="hljs-meta">#<span class="hljs-keyword">if</span> (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)</span><br>  <span class="hljs-type">void</span> (* EwiCallback)(<span class="hljs-keyword">struct</span> __WWDG_HandleTypeDef *hwwdg);                  <span class="hljs-comment">/*!&lt; WWDG Early WakeUp Interrupt callback */</span><br><br>  <span class="hljs-type">void</span> (* MspInitCallback)(<span class="hljs-keyword">struct</span> __WWDG_HandleTypeDef *hwwdg);              <span class="hljs-comment">/*!&lt; WWDG Msp Init callback */</span><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">/* USE_HAL_WWDG_REGISTER_CALLBACKS */</span></span><br>&#125; WWDG_HandleTypeDef;<br></code></pre></td></tr></table></figure>
+
+<p>该函数的参数主要有：外设基地址，预分频系数，窗口值，计数器值，以及是否开启中断。</p>
+<p>HAL_StatusTypeDef HAL_WWDG_Refresh(WWDG_HandleTypeDef *hwwdg)进行重装载值，也就是喂狗。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-comment">/**</span><br><span class="hljs-comment">  * @brief  Refresh the WWDG.</span><br><span class="hljs-comment">  * @param  hwwdg  pointer to a WWDG_HandleTypeDef structure that contains</span><br><span class="hljs-comment">  *                the configuration information for the specified WWDG module.</span><br><span class="hljs-comment">  * @retval HAL status</span><br><span class="hljs-comment">  */</span><br>HAL_StatusTypeDef <span class="hljs-title function_">HAL_WWDG_Refresh</span><span class="hljs-params">(WWDG_HandleTypeDef *hwwdg)</span><br>&#123;<br>  <span class="hljs-comment">/* Write to WWDG CR the WWDG Counter value to refresh with */</span><br>  WRITE_REG(hwwdg-&gt;Instance-&gt;CR, (hwwdg-&gt;Init.Counter));<br><br>  <span class="hljs-comment">/* Return function status */</span><br>  <span class="hljs-keyword">return</span> HAL_OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="六、实验源码"><a href="#六、实验源码" class="headerlink" title="六、实验源码"></a>六、实验源码</h2><h3 id="6-1-实验说明"><a href="#6-1-实验说明" class="headerlink" title="6.1 实验说明"></a>6.1 实验说明</h3><p>​        本次我们所设计的实验，主要是基于WWDG的一个操作，利用喂狗进行LED等的控制。设置一个计数器值为0X7F，窗口值为0X5F,预分频系数为8。在中断中喂狗，并且LED1 开始不停的闪烁。喂一次狗，LED1的状态发生一个转变。</p>
+<h3 id="6-2-源码"><a href="#6-2-源码" class="headerlink" title="6.2 源码"></a>6.2 源码</h3><p><strong>main.c</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>	<span class="hljs-type">uint8_t</span> wwdg_tr, wwdg_wr;<br>    <span class="hljs-comment">/* 系统时钟初始化成168 MHz */</span><br>    SystemClock_Config();<br>	<span class="hljs-comment">/* LED 端口初始化 */</span><br>	LED_GPIO_Config();	   <br><br>	<span class="hljs-comment">//检查窗口看门狗复位标志位</span><br>	<span class="hljs-keyword">if</span> (__HAL_RCC_GET_FLAG(RCC_FLAG_WWDGRST) != RESET)<br>	&#123;<br>		<span class="hljs-comment">// 看门狗复位启动，红色灯亮</span><br>		LED_RED;<br><br>		<span class="hljs-comment">//清除复位标志位</span><br>		__HAL_RCC_CLEAR_RESET_FLAGS();<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>	&#123;<br>		<span class="hljs-comment">// 正常启动，蓝色灯亮</span><br>		LED_BLUE;<br>	&#125;<br>	HAL_Delay(<span class="hljs-number">500</span>);<br>	LED_RGBOFF;<br>	HAL_Delay(<span class="hljs-number">500</span>);<br><br>	<span class="hljs-comment">// WWDG配置	</span><br>	<span class="hljs-comment">// 初始化WWDG：配置计数器初始值，配置上窗口值，启动WWDG，使能提前唤醒中断</span><br>	WWDG_Config(<span class="hljs-number">127</span>,<span class="hljs-number">80</span>,WWDG_PRESCALER_8);	<br>	<br>	<span class="hljs-comment">// 窗口值我们在初始化的时候设置成0X5F，这个值不会改变</span><br>	wwdg_wr = WWDG-&gt;CFR &amp; <span class="hljs-number">0X7F</span>;<br><br>	<span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)<br>	&#123;	<br><br>		<span class="hljs-comment">//-----------------------------------------------------</span><br>		<span class="hljs-comment">// 这部分应该写需要被WWDG监控的程序，这段程序运行的时间</span><br>		<span class="hljs-comment">// 决定了窗口值应该设置成多大。</span><br>		<span class="hljs-comment">//-----------------------------------------------------</span><br>		<span class="hljs-comment">// 计时器值，初始化成最大0X7F，当开启WWDG时候，这个值会不断减小</span><br>		<span class="hljs-comment">// 当计数器的值大于窗口值时喂狗的话，会复位，当计数器减少到0X40</span><br>		<span class="hljs-comment">// 还没有喂狗的话就非常非常危险了，计数器再减一次到了0X3F时就复位</span><br>		<span class="hljs-comment">// 所以要当计数器的值在窗口值和0X40之间的时候喂狗，其中0X40是固定的。</span><br>		wwdg_tr = WWDG-&gt;CR &amp; <span class="hljs-number">0X7F</span>;<br>		<span class="hljs-keyword">if</span>( wwdg_tr == wwdg_wr)<br>		&#123;<br>			<span class="hljs-comment">// 喂狗，重新设置计数器的值为最大0X7F</span><br>			WWDG_Feed();<br>			<span class="hljs-comment">// 正常喂狗，绿色灯闪烁</span><br>			LED2_TOGGLE;<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>wwdg.c</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs C"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;./BSP/wwdg/wwdg.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;./BSP/led/led.h&quot;</span></span><br>WWDG_HandleTypeDef wwdg_handler;<br> <br><span class="hljs-comment">//窗口看门狗初始化函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">wwdg_init</span><span class="hljs-params">(<span class="hljs-type">uint8_t</span> tr,<span class="hljs-type">uint8_t</span> wr,<span class="hljs-type">uint32_t</span> fprer )</span><br>&#123;<br>   wwdg_handler.Instance= WWDG;                 <span class="hljs-comment">//设置寄存器基地址；</span><br>   wwdg_handler.Init.Counter= tr;               <span class="hljs-comment">//设置计数器的值；</span><br>   wwdg_handler.Init.Prescaler= fprer;          <span class="hljs-comment">//设置预分频系数；</span><br>   wwdg_handler.Init.Window= wr;                <span class="hljs-comment">//设置窗口值；</span><br>   wwdg_handler.Init.EWIMode=WWDG_EWI_ENABLE;   <span class="hljs-comment">//设置使能窗口看门狗唤醒中断； </span><br>        HAL_WWDG_Init(&amp;wwdg_handler);<br>&#125;<br><span class="hljs-comment">//WWDG.Msp回调函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">HAL_WWDG_MspInit</span><span class="hljs-params">(WWDG_HandleTypeDef *hwwdg)</span><br>&#123;<br>    __HAL_RCC_WWDG_CLK_ENABLE();               <span class="hljs-comment">//使能窗口看门狗时钟；</span><br>    HAL_NVIC_SetPriority(WWDG_IRQn, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);      <span class="hljs-comment">//设置抢占优先级，子优先级；</span><br>    HAL_NVIC_EnableIRQ(WWDG_IRQn);<br>&#125;<br> <br> <br><span class="hljs-comment">//WWDG中断服务函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">WWDG_IRQHandler</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>  HAL_WWDG_IRQHandler(&amp;wwdg_handler);<span class="hljs-comment">//HAL库函数中断服务函数，会进行回调函数</span><br>&#125;<br> <br><span class="hljs-comment">//WWDG提前唤醒函数</span><br> <span class="hljs-type">void</span> <span class="hljs-title function_">HAL_WWDG_EarlyWakeupCallback</span><span class="hljs-params">(WWDG_HandleTypeDef *hwwdg)</span><br> &#123;<br>         HAL_WWDG_Refresh(&amp;wwdg_handler);<br>     HAL_GPIO_TogglePin(GPIOE, GPIO_PIN_5);<span class="hljs-comment">//led1的状态发生转变。</span><br> &#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                <p class="note note-primary">
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文作者:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">zhangJinLong</span><br>
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文链接:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">https://zhang426fly.github.io/2025/01/12/stm32/WWDG介绍/</span><br>
+                                    <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">版权声明:</span>
+                                    <span
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">本博客所有文章除特别声明外，均采用BY-NC-SA许可协议。转载请注明出处！</span>
+                                </p>
+                            </div>
+                        
+                        <hr/>
+                        <div>
+                            <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/stm32/" class="category-chain-item">stm32</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/stm32/" class="print-no-link">#stm32</a>
+      
+    </div>
+  
+</div>
+
+
+                            
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>STM32窗口看门狗</div>
+      <div>https://zhang426fly.github.io/2025/01/12/stm32/WWDG介绍/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>zhangJinLong</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="NC - 非商业性使用">
+                    <i class="iconfont icon-cc-nc"></i>
+                  </span>
+                </a>
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="SA - 相同方式共享">
+                    <i class="iconfont icon-cc-sa"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+                            
+                                <div class="post-prevnext my-3">
+                                    <article class="post-prev col-6">
+                                        
+                                        
+                                    </article>
+                                    <article class="post-next col-6">
+                                        
+                                        
+                                            <a href="/2025/01/12/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/" title="仿真其他设置">
+                                                <span class="hidden-mobile">仿真其他设置</span>
+                                                <span class="visible-mobile">下一篇</span>
+                                                <i class="iconfont icon-arrowright"></i>
+                                            </a>
+                                        
+                                    </article>
+                                </div>
+                            
+                        </div>
+
+                        
+  
+  
+    <article id="comments" lazyload>
+      
+    <div id="giscus" class="giscus"></div>
+    <script type="text/javascript">
+      Fluid.utils.loadComments('#giscus', function() {
+        var options = {"repo":"zhang426fly/comments","repo-id":"R_kgDOMqwM-w","category":"Announcements","category-id":"DIC_kwDOMqwM-84CiGPK","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"input-position":"top","lang":"zh-CN"};
+        var attributes = {};
+        for (let option in options) {
+          if (!option.startsWith('theme-')) {
+            var key = option.startsWith('data-') ? option : 'data-' + option;
+            attributes[key] = options[option];
+          }
+        }
+        var light = 'light';
+        var dark = 'dark';
+        window.GiscusThemeLight = light;
+        window.GiscusThemeDark = dark;
+        attributes['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark' ? dark : light;
+        for (let attribute in attributes) {
+          var value = attributes[attribute];
+          if (value === undefined || value === null || value === '') {
+            delete attributes[attribute];
+          }
+        }
+        var s = document.createElement('script');
+        s.setAttribute('src', 'https://giscus.app/client.js');
+        s.setAttribute('crossorigin', 'anonymous');
+        for (let attribute in attributes) {
+          s.setAttribute(attribute, attributes[attribute]);
+        }
+        var ss = document.getElementsByTagName('script');
+        var e = ss.length > 0 ? ss[ss.length - 1] : document.head || document.documentElement;
+        e.parentNode.insertBefore(s, e.nextSibling);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+                    </article>
+                </div>
+            </div>
+        </div>
+
+        <div class="side-col d-none d-lg-block col-lg-2">
+            
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+        <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+            <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+        </a>
+    
+
+    
+        <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+</main>
+
+<footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+</footer>
+
+<!-- Scripts -->
+
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+
+
+<noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+</noscript>
+</body>
+</html>
