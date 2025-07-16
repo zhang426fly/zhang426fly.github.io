@@ -1,0 +1,987 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  <link rel="icon" href="https://bu.dusays.com/2024/08/25/66cb33c3dd5a4.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#008C8C">
+  <meta name="author" content="zhangJinLong">
+  <meta name="keywords" content="FPGA stm32 C++ C Goland">
+  
+    <meta name="description" content="一个热衷和你分享的懒羊羊">
+<meta property="og:type" content="website">
+<meta property="og:title" content="分类">
+<meta property="og:url" content="https://zhang426fly.github.io/categories/index.html">
+<meta property="og:site_name" content="Zhang&#39;blog">
+<meta property="og:description" content="一个热衷和你分享的懒羊羊">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="zhangJinLong">
+<meta property="article:tag" content="FPGA stm32 C++ C Goland">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>分类 - Zhang&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/photo/iconfont.css">
+<link rel="stylesheet" href="/css/vedio/iconfont.css">
+<link rel="stylesheet" href="/css/sing/iconfont.css">
+<link rel="stylesheet" href="/css/love/iconfont.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"zhang426fly.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+
+
+<header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Zhang&#39;blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>生活</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/photo/" target="_self">
+                    <i class="iconfont icon-xiangce"></i>
+                    <span>相册</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/video/" target="_self">
+                    <i class="iconfont icon-shipin"></i>
+                    <span>视频</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sing/" target="_self">
+                    <i class="iconfont icon-gequ"></i>
+                    <span>歌单</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/love/" target="_self">
+                    <i class="iconfont icon-love"></i>
+                    <span>Love</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/plan/" target="_self">
+                    <i class="iconfont icon-plan"></i>
+                    <span>计划</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://bu.dusays.com/2024/08/25/66cb327134384.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分类"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+</header>
+
+<main>
+    
+        <div class="container nopadding-x-md" >
+            <div id="board"
+                    >
+                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-10 m-auto">
+                            
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Primer"
+        id="heading-dd152b9c02bb725f7af5038f5b1649ac" role="tab" data-toggle="collapse" href="#collapse-dd152b9c02bb725f7af5038f5b1649ac"
+        aria-expanded="false"
+      >
+        Primer
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/Primer/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>5</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-dd152b9c02bb725f7af5038f5b1649ac"
+           role="tabpanel" aria-labelledby="heading-dd152b9c02bb725f7af5038f5b1649ac">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/%E4%BB%BF%E7%9C%9F/5%E3%80%81%E4%BB%BF%E7%9C%9F%E5%85%B6%E4%BB%96%E8%AE%BE%E7%BD%AE/" title="仿真其他设置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">仿真其他设置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/%E4%BB%BF%E7%9C%9F/4%E3%80%81%E5%AE%89%E5%85%A8%E6%B0%94%E5%9B%8A%E5%BB%BA%E6%A8%A1/" title="安全气囊建模"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">安全气囊建模</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/%E4%BB%BF%E7%9C%9F/3%E3%80%81%E5%AE%89%E5%85%A8%E5%B8%A6%E5%BB%BA%E6%A8%A1/" title="安全带建模"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">安全带建模</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/%E4%BB%BF%E7%9C%9F/2%E3%80%81%E5%81%87%E4%BA%BA%E5%A7%BF%E6%80%81%E8%B0%83%E8%8A%82/" title="假人姿态调整"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">假人姿态调整</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/%E4%BB%BF%E7%9C%9F/1%E3%80%81%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%90%8E%E5%A4%84%E7%90%86/" title="约束系统介绍与后处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">约束系统介绍与后处理</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="C语言"
+        id="heading-d117f5dea6b7959c82d4fdb7490c555d" role="tab" data-toggle="collapse" href="#collapse-d117f5dea6b7959c82d4fdb7490c555d"
+        aria-expanded="false"
+      >
+        C语言
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/C%E8%AF%AD%E8%A8%80/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-d117f5dea6b7959c82d4fdb7490c555d"
+           role="tabpanel" aria-labelledby="heading-d117f5dea6b7959c82d4fdb7490c555d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/c/%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90/" title="内存对齐"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">内存对齐</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/c/cyuyan%E5%9F%BA%E7%A1%80/" title="C语言基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C语言基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/PDF01/" title="第六版C plus教程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">第六版C plus教程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="stm32"
+        id="heading-f3288450e15100c5e9ea0541398b5ab6" role="tab" data-toggle="collapse" href="#collapse-f3288450e15100c5e9ea0541398b5ab6"
+        aria-expanded="false"
+      >
+        stm32
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/stm32/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-f3288450e15100c5e9ea0541398b5ab6"
+           role="tabpanel" aria-labelledby="heading-f3288450e15100c5e9ea0541398b5ab6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/stm32/%E4%B8%B2%E5%8F%A3%E9%85%8D%E7%BD%AE/" title="串口配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">串口配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/stm32/%E4%B8%AD%E6%96%AD/" title="STM32中断"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">STM32中断</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/stm32/IWDG%E7%AE%80%E4%BB%8B/" title="STM32独立看门狗"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">STM32独立看门狗</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="C++"
+        id="heading-f6f87c9fdcf8b3c3f07f93f1ee8712c9" role="tab" data-toggle="collapse" href="#collapse-f6f87c9fdcf8b3c3f07f93f1ee8712c9"
+        aria-expanded="false"
+      >
+        C++
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/C/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>3</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-f6f87c9fdcf8b3c3f07f93f1ee8712c9"
+           role="tabpanel" aria-labelledby="heading-f6f87c9fdcf8b3c3f07f93f1ee8712c9">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/c++/C++%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" title="C++核心"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C++核心</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/c++/C++%E6%8F%90%E9%AB%98%E7%BC%96%E7%A8%8B/" title="C++高级"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C++高级</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/c++/C++%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" title="C++基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C++基础</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Goland"
+        id="heading-056b56587f2752b1ac3365ac2ef727ca" role="tab" data-toggle="collapse" href="#collapse-056b56587f2752b1ac3365ac2ef727ca"
+        aria-expanded="false"
+      >
+        Goland
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/Goland/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-056b56587f2752b1ac3365ac2ef727ca"
+           role="tabpanel" aria-labelledby="heading-056b56587f2752b1ac3365ac2ef727ca">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/goland/Goland%E5%BC%80%E5%B1%B1%E7%AF%87/" title="Goland基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Goland基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/PDF/" title="韩顺平Goland笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">韩顺平Goland笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="FPGA"
+        id="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7" role="tab" data-toggle="collapse" href="#collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+        aria-expanded="false"
+      >
+        FPGA
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/FPGA/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>2</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-a1b5c56eac8d96bc8d1c7e941a18dbf7"
+           role="tabpanel" aria-labelledby="heading-a1b5c56eac8d96bc8d1c7e941a18dbf7">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/fpga/%E6%8C%89%E9%94%AE%E6%B6%88%E6%8A%96%E5%8E%9F%E7%90%86%E5%9B%BE/" title="按键消抖"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">按键消抖</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/07/05/fpga/FPGA%E5%91%BC%E5%90%B8%E7%81%AF/" title="呼吸灯"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">呼吸灯</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="机械"
+        id="heading-5edd2814297895fb781eaac417218183" role="tab" data-toggle="collapse" href="#collapse-5edd2814297895fb781eaac417218183"
+        aria-expanded="false"
+      >
+        机械
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/%E6%9C%BA%E6%A2%B0/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-5edd2814297895fb781eaac417218183"
+           role="tabpanel" aria-labelledby="heading-5edd2814297895fb781eaac417218183">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/PDF02/" title="机械设计基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">机械设计基础</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="QT"
+        id="heading-33b8d767c1f7c7984d900797e2bb7727" role="tab" data-toggle="collapse" href="#collapse-33b8d767c1f7c7984d900797e2bb7727"
+        aria-expanded="false"
+      >
+        QT
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/QT/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-33b8d767c1f7c7984d900797e2bb7727"
+           role="tabpanel" aria-labelledby="heading-33b8d767c1f7c7984d900797e2bb7727">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/PDF03/" title="QT基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">QT基础</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hello World"
+        id="heading-b10a8db164e0754105b7a99be72e3fe5" role="tab" data-toggle="collapse" href="#collapse-b10a8db164e0754105b7a99be72e3fe5"
+        aria-expanded="false"
+      >
+        Hello World
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/Hello-World/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-b10a8db164e0754105b7a99be72e3fe5"
+           role="tabpanel" aria-labelledby="heading-b10a8db164e0754105b7a99be72e3fe5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2019/10/10/hello-world/" title="Hello World"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Hello World</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Hexo"
+        id="heading-c00d1eb68b529768ba98c975c76a9b66" role="tab" data-toggle="collapse" href="#collapse-c00d1eb68b529768ba98c975c76a9b66"
+        aria-expanded="false"
+      >
+        Hexo
+        <span class="list-group-count"></span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+        <a href="/categories/Hexo/" class="category-count col-2 col-md-1 col-xm-1">
+          <i class="iconfont icon-articles"></i>
+          <span>1</span>
+        </a>
+      
+      <div class="category-collapse collapse " id="collapse-c00d1eb68b529768ba98c975c76a9b66"
+           role="tabpanel" aria-labelledby="heading-c00d1eb68b529768ba98c975c76a9b66">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/07/05/Fluid/Fluid%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96/" title="Fluid主题美化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Fluid主题美化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+    
+        <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+            <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+        </a>
+    
+
+    
+        <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+</main>
+
+<footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+</footer>
+
+<!-- Scripts -->
+
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/DynamicRibbon.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.min.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/gradient.css.js"></script>
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+
+
+<noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+</noscript>
+</body>
+</html>
