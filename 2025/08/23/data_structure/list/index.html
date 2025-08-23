@@ -22,13 +22,13 @@
     <meta name="description" content="https:&#x2F;&#x2F;space.bilibili.com&#x2F;40323036?spm_id_from&#x3D;333.788.b_765f7570696e666f.2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构">
-<meta property="og:url" content="https://zhang426fly.github.io/2025/08/09/data_structure/linear_list/index.html">
+<meta property="og:url" content="https://zhang426fly.github.io/2025/08/23/data_structure/list/index.html">
 <meta property="og:site_name" content="Zhang&#39;blog">
 <meta property="og:description" content="https:&#x2F;&#x2F;space.bilibili.com&#x2F;40323036?spm_id_from&#x3D;333.788.b_765f7570696e666f.2">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://bu.dusays.com/2025/08/09/689715d8ecea1.jpeg">
-<meta property="article:published_time" content="2025-08-09T09:25:40.649Z">
-<meta property="article:modified_time" content="2025-08-09T09:34:19.503Z">
+<meta property="article:published_time" content="2025-08-23T03:00:34.103Z">
+<meta property="article:modified_time" content="2025-08-23T03:01:48.817Z">
 <meta property="article:author" content="zhangJinLong">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary_large_image">
@@ -290,8 +290,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-08-09 17:25" pubdate>
-          2025年8月9日 下午
+        <time datetime="2025-08-23 11:00" pubdate>
+          2025年8月23日 上午
         </time>
       </span>
     
@@ -302,7 +302,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          746 字
+          420 字
         
       </span>
     
@@ -313,7 +313,7 @@
         
         
         
-          7 分钟
+          4 分钟
         
       </span>
     
@@ -389,7 +389,7 @@
       
         <a href="/2025/08/09/data_structure/linear_list/" title="数据结构"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">数据结构</span>
         </a>
       
@@ -398,7 +398,7 @@
       
         <a href="/2025/08/23/data_structure/list/" title="数据结构"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">数据结构</span>
         </a>
       
@@ -427,7 +427,7 @@
                                style="">
                                 
                                     
-                                        本文最后更新于 2025年8月9日 下午
+                                        本文最后更新于 2025年8月23日 上午
                                     
                                 
                             </p>
@@ -435,47 +435,41 @@
                         
                             <div class="markdown-body">
                                 
-                                <h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs C++">ADT LinearList&#123;<br>    数据对象：D=&#123;aⁱ|aⁱ∈D₀,i=<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,...,n,n≥<span class="hljs-number">0</span>,D₀为某一数据对象&#125;<br>    结构关系：R=&#123;&lt;aⁱ,aⁱ<span class="hljs-number">+1</span>&gt;|aⁱ,aⁱ<span class="hljs-number">+1</span>∈D,i=<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,...,n<span class="hljs-number">-1</span>&#125;<br>    基本操作：<br>    <span class="hljs-number">1.</span><span class="hljs-built_in">InitList</span>(L)<br>      操作前提：L为未初始化线性表。<br>      操作结果：将L初始化为空表。<br>    <span class="hljs-number">2.L</span>istLength(L)<br>      操作前提：线性表L已存在。<br>      操作结果：如果L为空表则返回<span class="hljs-number">0</span>，否则返回表中的元素的个数。<br>    <span class="hljs-number">3.</span><span class="hljs-built_in">GetData</span>(L,i)<br>      操作前提：表L存在，且<span class="hljs-number">1</span>≤i≤<span class="hljs-built_in">ListLength</span>(L)。<br>      操作结果：返回线性表L中第i个合法元素的值。<br>    <span class="hljs-number">4.</span><span class="hljs-built_in">InsList</span>(L,i,e)<br>      操作前提：表L已存在，e为合法元素值且<span class="hljs-number">1</span>≤i≤<span class="hljs-built_in">ListLength</span>(L)<span class="hljs-number">+1</span>。<br>      操作结果：在L中第i个位置之前插入新的数据元素e，L的长度加<span class="hljs-number">1</span>。<br>    <span class="hljs-number">5.</span><span class="hljs-built_in">DelList</span>(L,i,e)<br>      操作前提：表L已存在且非空，<span class="hljs-number">1</span>≤i≤<span class="hljs-built_in">ListLength</span>(L)。<br>      操作结果：删除L的第i个数据元素，并用e返回其值，L的长度减<span class="hljs-number">1</span>。<br>    <span class="hljs-number">6.L</span>ocate(L,e)<br>      操作前提：表L已存在，e为合法数据元素值。<br>      操作结果：如果L中存在数据元素e，则返回e在L中的位置，否则返回空位置。<br>    <span class="hljs-number">7.</span><span class="hljs-built_in">DestroyList</span>(L)<br>      操作前提：线性表已存在。<br>      操作结果：将L销毁。<br>    <span class="hljs-number">8.</span><span class="hljs-built_in">ClearList</span>(L)<br>      操作前提：线性表L已存在。<br>      操作结果：将L置为空表。<br>    <span class="hljs-number">9.</span><span class="hljs-built_in">EmptyList</span>(L)<br>      操作前提：线性表L已存在。<br>      操作结果：如果L为空表则返回TRUE，否则返回FALSE。    <br>&#125;ADT LinearList;<br></code></pre></td></tr></table></figure>
+                                <h3 id="1、初始化"><a href="#1、初始化" class="headerlink" title="1、初始化"></a>1、初始化</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92dde11015.png" srcset="/img/loading.gif" lazyload alt="image-20250823104020878.png"></p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs elm">typedef struct <span class="hljs-type">LNode</span> &#123;<br>    int data;<br>    struct <span class="hljs-type">LNode</span> *next;<br>&#125; <span class="hljs-type">LNode</span>, *<span class="hljs-type">LinkList</span>;<br><br>typedef enum <span class="hljs-type">Status</span> &#123;<br>    <span class="hljs-type">OK</span> = 1,<br>    <span class="hljs-type">ERROR</span> = 0<br>&#125; <span class="hljs-type">Status</span>;<br></code></pre></td></tr></table></figure>
 
-<p><strong>结构体</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">define</span> MAXSIZE 100</span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-type">int</span> * elem;<br>    <span class="hljs-type">int</span> length;<br>&#125; SqList;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">enum</span> &#123;<br>    OK = <span class="hljs-number">1</span>,<br>    ERROR = <span class="hljs-number">0</span><br>&#125;Status;<br></code></pre></td></tr></table></figure>
+<p><img src="https://bu.dusays.com/2025/08/23/68a92ddd709e9.png" srcset="/img/loading.gif" lazyload alt="image-20250823104239699.png"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Status <span class="hljs-title">InitList_L</span><span class="hljs-params">(LinkList L)</span> </span>&#123;<br>    L = (LinkList) <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(LNode));<br>    L-&gt;next = <span class="hljs-literal">NULL</span>;<br><span class="hljs-comment">//    free(L);</span><br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://bu.dusays.com/2025/08/09/689715d92b042.png" srcset="/img/loading.gif" lazyload alt="image-20250809151136403.png"></p>
-<p><img src="https://bu.dusays.com/2025/08/09/689715dc0965c.png" srcset="/img/loading.gif" lazyload alt="image-20250809151425453.png"></p>
-<p><strong>初始化线性表</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">Status <span class="hljs-title">InitList</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    sqList-&gt;elem = <span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>) * MAXSIZE);<br>    <span class="hljs-keyword">if</span>(sqList-&gt;elem == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> ERROR;<br>    sqList-&gt;length = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;  <br></code></pre></td></tr></table></figure>
+<h3 id="2、清空链表"><a href="#2、清空链表" class="headerlink" title="2、清空链表"></a>2、清空链表</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92ddc19b8a.png" srcset="/img/loading.gif" lazyload alt="image-20250823104337285.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">ListEmpty</span><span class="hljs-params">(LinkList L)</span> &#123;<br>    <span class="hljs-keyword">if</span> (L-&gt;next) <span class="hljs-keyword">return</span> OK;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> ERROR;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p> <strong>销毁线性表</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">DestroyList</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(sqList) <span class="hljs-built_in">free</span>(sqList);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="3、销毁链表"><a href="#3、销毁链表" class="headerlink" title="3、销毁链表"></a>3、销毁链表</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92ddc71b14.png" srcset="/img/loading.gif" lazyload alt="image-20250823104513151.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">ListDestroy</span><span class="hljs-params">(LinkList L)</span> &#123;<br>    LinkList p;<br>    <span class="hljs-keyword">while</span> (L != <span class="hljs-literal">NULL</span>) &#123;<br>        p = L;<br>        L = L-&gt;next;<br>        <span class="hljs-built_in">free</span>(p);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>清空线性表</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">ClearList</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    sqList-&gt;length = <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="4、清空链表"><a href="#4、清空链表" class="headerlink" title="4、清空链表"></a>4、清空链表</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de6b140a.png" srcset="/img/loading.gif" lazyload alt="image-20250823104733119.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">ListClean</span><span class="hljs-params">(LinkList L)</span> &#123;<br>    LinkList p, q;<br>    p = L-&gt;next;<br>    <span class="hljs-keyword">while</span> (p) &#123;<br>        q = p-&gt;next;<br>        <span class="hljs-built_in">free</span>(p);<br>        p = q;<br>    &#125;<br>    L-&gt;next = <span class="hljs-literal">NULL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>线性表的长度</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">GetLength</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> sqList-&gt;length;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="5、获取链表长度"><a href="#5、获取链表长度" class="headerlink" title="5、获取链表长度"></a>5、获取链表长度</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92ddc9585e.png" srcset="/img/loading.gif" lazyload alt="image-20250823104846475.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">GetListLength</span><span class="hljs-params">(LinkList L)</span> &#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;<br>    LinkList p = L-&gt;next;<br>    <span class="hljs-keyword">while</span> (p) &#123;<br>        p = p-&gt;next;<br>        i++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>判断线性表是否为空</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">Status <span class="hljs-title">IsEmptyList</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(!sqList-&gt;length) <span class="hljs-keyword">return</span> OK;<br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> ERROR;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="6、获取链表元素"><a href="#6、获取链表元素" class="headerlink" title="6、获取链表元素"></a>6、获取链表元素</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de018d64.png" srcset="/img/loading.gif" lazyload alt="image-20250823104951590.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">GetListElem</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> *elem)</span> &#123;<br>    <span class="hljs-type">int</span> temp = <span class="hljs-number">1</span>;<br>    LinkList p = L-&gt;next;<br>    <span class="hljs-keyword">while</span> (p &amp;&amp; temp &lt; i) &#123;<br>        p = p-&gt;next;<br>        temp++;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (!p || temp &gt; i) <span class="hljs-keyword">return</span> ERROR;<br>    *elem = p-&gt;data;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>线性表取值</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">Status <span class="hljs-title">GetElem</span><span class="hljs-params">(SqList *sqList,<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> *elem)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">1</span> || i&gt;sqList-&gt;length) <span class="hljs-keyword">return</span> ERROR;<br>    *elem = sqList-&gt;elem[i<span class="hljs-number">-1</span>];<br>     <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="7、获取链表元素位置"><a href="#7、获取链表元素位置" class="headerlink" title="7、获取链表元素位置"></a>7、获取链表元素位置</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92ddf0b8be.png" srcset="/img/loading.gif" lazyload alt="image-20250823105057767.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">GetListPosition</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> elem)</span> &#123;<br>    LinkList p = L-&gt;next;<br>    <span class="hljs-type">int</span> temp = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (p &amp;&amp; p-&gt;data != elem) &#123;<br>        p = p-&gt;next;<br>        temp++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> temp;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>顺序表的查找</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">LocateElem</span><span class="hljs-params">(SqList *sqList,<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> elem)</span></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; sqList-&gt;length; ++j) &#123;<br>        <span class="hljs-keyword">if</span>(sqList-&gt;elem[j] == elem) <span class="hljs-keyword">return</span> j + <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="8、插入链表元素"><a href="#8、插入链表元素" class="headerlink" title="8、插入链表元素"></a>8、插入链表元素</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de69c30d.png" srcset="/img/loading.gif" lazyload alt="image-20250823105220238.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">InsertList</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> i)</span> &#123;<br>    LinkList p = L-&gt;next;<br>    <span class="hljs-type">int</span> temp = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (p &amp;&amp; temp &lt; i - <span class="hljs-number">1</span>) &#123;<br>        p = p-&gt;next;<br>        temp++;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (!p || temp &gt; i - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> ERROR;<br>    LinkList Temp = (LinkList) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LNode));<br>    Temp-&gt;next = p-&gt;next;<br>    p-&gt;next = Temp;<br><br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>线性表插值</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">Status <span class="hljs-title">InsertList</span><span class="hljs-params">(SqList *sqList,<span class="hljs-type">int</span> i,<span class="hljs-type">int</span> elem)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">1</span> || i &gt; sqList-&gt;length + <span class="hljs-number">1</span> || sqList -&gt; length == MAXSIZE) <span class="hljs-keyword">return</span> ERROR;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = sqList-&gt;length; j &gt; i<span class="hljs-number">-1</span>; --j) &#123;<br>        sqList-&gt;elem[j] =  sqList-&gt;elem[j<span class="hljs-number">-1</span>];<br>    &#125;<br>    sqList-&gt;elem[i<span class="hljs-number">-1</span>] = elem;<br>    sqList-&gt;length ++;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="9、删除链表元素"><a href="#9、删除链表元素" class="headerlink" title="9、删除链表元素"></a>9、删除链表元素</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de725b66.png" srcset="/img/loading.gif" lazyload alt="image-20250823105256997.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">DeleteList</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> i)</span> &#123;<br>    LinkList p = L-&gt;next;<br>    <span class="hljs-type">int</span> temp = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (p &amp;&amp; temp &lt; i - <span class="hljs-number">1</span>) &#123;<br>        p = p-&gt;next;<br>        temp++;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (!p || temp &gt; i - <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> ERROR;<br>    LinkList q = p-&gt;next;<br>    p-&gt;next = q-&gt;next;<br>    <span class="hljs-built_in">free</span>(q);<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>线性表删除</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">Status <span class="hljs-title">DeleteList</span><span class="hljs-params">(SqList *sqList,<span class="hljs-type">int</span> i)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(i &lt; <span class="hljs-number">1</span> || i &gt; sqList-&gt;length) <span class="hljs-keyword">return</span> ERROR;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i; j &lt;= sqList-&gt;length; j++) &#123;<br>        sqList-&gt;elem[j<span class="hljs-number">-1</span>] =  sqList-&gt;elem[j];<br>    &#125;<br>    sqList-&gt;length --;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="10、头插法创建链表"><a href="#10、头插法创建链表" class="headerlink" title="10、头插法创建链表"></a>10、头插法创建链表</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de7a27d4.png" srcset="/img/loading.gif" lazyload alt="image-20250823105358666.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">CreateList_H</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> i)</span> &#123;<br>    InitList_L(L);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = i; j &gt; <span class="hljs-number">0</span>; --j) &#123;<br>        LinkList p = (LinkList) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LNode));<br>        scanf_s(<span class="hljs-string">&quot;%d\n&quot;</span>, p-&gt;data);<br>        p-&gt;next = L-&gt;next;<br>        L-&gt;next = p;<br>    &#125;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>线性表打印</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">PrintList</span><span class="hljs-params">(SqList *sqList)</span></span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; sqList-&gt;length; j++) &#123;<br>        <span class="hljs-built_in">printf_s</span>(<span class="hljs-string">&quot;第%d个元素的值为：%d\n&quot;</span>,j<span class="hljs-number">+1</span>,sqList-&gt;elem[j]);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p><strong>main函数</strong></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span> </span>&#123;<br>    SqList sqList =&#123;&#125;;<br>    Status status = <span class="hljs-built_in">InitList</span>(&amp;sqList);<br>    <span class="hljs-built_in">printf_s</span>(<span class="hljs-string">&quot;创建线性表%d\n&quot;</span>,status);<br><br>     <span class="hljs-built_in">InsertList</span>(&amp;sqList,<span class="hljs-number">1</span>,<span class="hljs-number">5</span>);<br>     <span class="hljs-built_in">InsertList</span>(&amp;sqList,<span class="hljs-number">2</span>,<span class="hljs-number">6</span>);<br>     <span class="hljs-built_in">InsertList</span>(&amp;sqList,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>);<br><br>    <span class="hljs-built_in">PrintList</span>(&amp;sqList);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-
+<h3 id="11、尾插法创建链表"><a href="#11、尾插法创建链表" class="headerlink" title="11、尾插法创建链表"></a>11、尾插法创建链表</h3><p><img src="https://bu.dusays.com/2025/08/23/68a92de6217ef.png" srcset="/img/loading.gif" lazyload alt="image-20250823105433816.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c">Status <span class="hljs-title function_">CreateList_R</span><span class="hljs-params">(LinkList L, <span class="hljs-type">int</span> i)</span> &#123;<br>    InitList_L(L);<br>    LinkList r = L;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; i; ++j) &#123;<br>        LinkList p = (LinkList) <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(LNode));<br>        scanf_s(<span class="hljs-string">&quot;%d\n&quot;</span>, p-&gt;data);<br>        p-&gt;next = <span class="hljs-literal">NULL</span>;<br>        r-&gt;next = p;<br>        r = p;<br>    &#125;<br>    <span class="hljs-keyword">return</span> OK;<br>&#125;<br></code></pre></td></tr></table></figure>
                                 
                                 <p class="note note-primary">
                                     <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文作者:</span>
@@ -483,7 +477,7 @@
                                             style="font-family: 'Microsoft YaHei UI';font-size: 17px">zhangJinLong</span><br>
                                     <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">本文链接:</span>
                                     <span
-                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">https://zhang426fly.github.io/2025/08/09/data_structure/linear_list/</span><br>
+                                            style="font-family: 'Microsoft YaHei UI';font-size: 17px">https://zhang426fly.github.io/2025/08/23/data_structure/list/</span><br>
                                     <span style="font-family: 'Microsoft YaHei UI';font-size: 20px">版权声明:</span>
                                     <span
                                             style="font-family: 'Microsoft YaHei UI';font-size: 17px">本博客所有文章除特别声明外，均采用BY-NC-SA许可协议。转载请注明出处！</span>
@@ -532,7 +526,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>数据结构</div>
-      <div>https://zhang426fly.github.io/2025/08/09/data_structure/linear_list/</div>
+      <div>https://zhang426fly.github.io/2025/08/23/data_structure/list/</div>
     </div>
     <div class="license-meta">
       
@@ -544,7 +538,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年8月9日</div>
+          <div>2025年8月23日</div>
         </div>
       
       
@@ -588,18 +582,12 @@
                                     <article class="post-prev col-6">
                                         
                                         
-                                            <a href="/2025/08/17/Freertos/FreeRTOS01/" title="Freertos">
-                                                <i class="iconfont icon-arrowleft"></i>
-                                                <span class="hidden-mobile">Freertos</span>
-                                                <span class="visible-mobile">上一篇</span>
-                                            </a>
-                                        
                                     </article>
                                     <article class="post-next col-6">
                                         
                                         
-                                            <a href="/2025/08/03/cmake/CMake/" title="CMake">
-                                                <span class="hidden-mobile">CMake</span>
+                                            <a href="/2025/08/17/Freertos/FreeRTOS01/" title="Freertos">
+                                                <span class="hidden-mobile">Freertos</span>
                                                 <span class="visible-mobile">下一篇</span>
                                                 <i class="iconfont icon-arrowright"></i>
                                             </a>
