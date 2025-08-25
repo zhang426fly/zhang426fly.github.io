@@ -21,8 +21,8 @@
   
     <meta name="description" content="一个热衷和你分享的懒羊羊">
 <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://zhang426fly.github.io/tags/index.html">
+<meta property="og:title" content="Zhang&#39;blog">
+<meta property="og:url" content="https://zhang426fly.github.io/page/4/index.html">
 <meta property="og:site_name" content="Zhang&#39;blog">
 <meta property="og:description" content="一个热衷和你分享的懒羊羊">
 <meta property="og:locale" content="zh_CN">
@@ -34,7 +34,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>标签 - Zhang&#39;blog</title>
+  <title>Zhang&#39;blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -95,7 +95,7 @@
 <header>
     
 
-<div class="header-inner" style="height: 80vh;">
+<div class="header-inner" style="height: 100vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -269,7 +269,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="标签"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -293,16 +293,90 @@
     
         <div class="container nopadding-x-md" >
             <div id="board"
-                    >
+                    style="margin-top: 0">
                 
                 <div class="container">
                     <div class="row">
                         <div class="col-12 col-md-10 m-auto">
                             
 
-<div class="text-center tagcloud">
-  <a href="/tags/C/" style="font-size: 26.25px; color: #558ac5">C++</a> <a href="/tags/CMake/" style="font-size: 15px; color: #bbe">CMake</a> <a href="/tags/C%E8%AF%AD%E8%A8%80/" style="font-size: 26.25px; color: #558ac5">C语言</a> <a href="/tags/FPGA/" style="font-size: 18.75px; color: #99abe0">FPGA</a> <a href="/tags/Freertos/" style="font-size: 15px; color: #bbe">Freertos</a> <a href="/tags/Goland/" style="font-size: 18.75px; color: #99abe0">Goland</a> <a href="/tags/Hello-World/" style="font-size: 15px; color: #bbe">Hello World</a> <a href="/tags/Hexo/" style="font-size: 15px; color: #bbe">Hexo</a> <a href="/tags/Linux/" style="font-size: 15px; color: #bbe">Linux</a> <a href="/tags/QT/" style="font-size: 18.75px; color: #99abe0">QT</a> <a href="/tags/stm32/" style="font-size: 22.5px; color: #779bd3">stm32</a> <a href="/tags/%E4%BB%BF%E7%9C%9F/" style="font-size: 30px; color: #337ab7">仿真</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 22.5px; color: #779bd3">数据结构</a> <a href="/tags/%E6%9C%BA%E6%A2%B0/" style="font-size: 15px; color: #bbe">机械</a>
-</div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2019/10/10/hello-world/" target="_self">
+          <img src="https://bu.dusays.com/2024/08/25/66cb1a02c790d.jpeg" srcset="/img/loading.gif" lazyload alt="Hello World">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2019/10/10/hello-world/" target="_self">
+          Hello World
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt " href="/2019/10/10/hello-world/" target="_self">
+        <div>
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2019-10-10 10:00" pubdate>
+              2019-10-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Hello-World/" class="category-chain-item">Hello World</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Hello-World/">#Hello World</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/3/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><span class="page-number current">4</span>
+    </span>
+  </nav>
+
+
 
                         </div>
                     </div>
@@ -413,7 +487,37 @@
       }
       var text = subtitle.getAttribute('data-typed-text');
       
-        typing(text);
+        jQuery.ajax({
+          type: 'GET',
+          url: 'https://v1.hitokoto.cn/',
+          headers: {},
+          dataType: 'json',
+          success: function(result) {
+            var apiText;
+            if (result) {
+              var keys = 'hitokoto'.split(',');
+              if (result instanceof Array) {
+                result = result[0];
+              }
+              for (const k of keys) {
+                var value = result[k];
+                if (typeof value === 'string') {
+                  apiText = value;
+                  break;
+                } else if (value instanceof Object) {
+                  result = value;
+                }
+              }
+            }
+            apiText ? typing(apiText) : typing(text);
+          },
+          error: function(xhr, status, error) {
+            if (error) {
+              console.error('Failed to request https://v1.hitokoto.cn/:', error);
+            }
+            typing(text);
+          }
+        })
       
     })(window, document);
   </script>
